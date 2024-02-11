@@ -2,9 +2,27 @@ project:
   type: website
 
 website:
-  title: "VAA_project"
+  title: "ISSS608-G1"
   navbar:
     left:
+      - text: "Proposal"
+        menu: 
+        - text: "Project Proposal"
+          href: "proposal/proposal.html"
+        
+      - text: "Prototype"
+        menu: 
+        - text: "EDA"
+          href: "prototype/EDA/eda.html"
+        - text: "Clustering"
+          href: "prototype/modeling/clustering.html"
+      
+      - text: "Project"
+        menu: 
+        - text: "website"
+          href: "project/website.html"
+
+    right:
       - href: index.qmd
         text: Home
       - about.qmd

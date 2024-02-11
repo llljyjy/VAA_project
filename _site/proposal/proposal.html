@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Group 1">
+<meta name="dcterms.date" content="2024-02-11">
+
+<title>ISSS608-G1 - Project Proposal</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">ISSS608-G1</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-proposal" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Proposal</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-proposal">    
+        <li>
+    <a class="dropdown-item" href="../proposal/proposal.html" rel="" target="">
+ <span class="dropdown-text">Project Proposal</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-prototype" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Prototype</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-prototype">    
+        <li>
+    <a class="dropdown-item" href="../prototype/EDA/eda.html" rel="" target="">
+ <span class="dropdown-text">EDA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../prototype/modeling/clustering.html" rel="" target="">
+ <span class="dropdown-text">Clustering</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-project" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Project</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-project">    
+        <li>
+    <a class="dropdown-item" href="../project/website.html" rel="" target="">
+ <span class="dropdown-text">website</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-big-mac-index" id="toc-the-big-mac-index" class="nav-link active" data-scroll-target="#the-big-mac-index">THE BIG MAC INDEX 🍔</a></li>
+  <li><a href="#problem-statement" id="toc-problem-statement" class="nav-link" data-scroll-target="#problem-statement">PROBLEM STATEMENT 💫</a></li>
+  <li><a href="#literature-review" id="toc-literature-review" class="nav-link" data-scroll-target="#literature-review">LITERATURE REVIEW 📖</a></li>
+  <li><a href="#project-objectives" id="toc-project-objectives" class="nav-link" data-scroll-target="#project-objectives">PROJECT OBJECTIVES 🎯</a></li>
+  <li><a href="#dataset" id="toc-dataset" class="nav-link" data-scroll-target="#dataset">DATASET 📊</a></li>
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">LIMITATIONS ⚙️</a></li>
+  <li><a href="#analysis-tasks" id="toc-analysis-tasks" class="nav-link" data-scroll-target="#analysis-tasks">ANALYSIS TASKS 📍</a></li>
+  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">METHODOLOGY 🔍</a></li>
+  <li><a href="#r-shiny-app" id="toc-r-shiny-app" class="nav-link" data-scroll-target="#r-shiny-app">R SHINY APP 💻</a>
+  <ul class="collapse">
+  <li><a href="#key-features" id="toc-key-features" class="nav-link" data-scroll-target="#key-features">Key Features</a></li>
+  <li><a href="#additional-features" id="toc-additional-features" class="nav-link" data-scroll-target="#additional-features">Additional features</a></li>
+  </ul></li>
+  <li><a href="#scope-of-work" id="toc-scope-of-work" class="nav-link" data-scroll-target="#scope-of-work">SCOPE OF WORK ⭐</a></li>
+  <li><a href="#reference" id="toc-reference" class="nav-link" data-scroll-target="#reference">REFERENCE 🔖</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Project Proposal</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Group 1 </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 11, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../image/bigmac.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<section id="the-big-mac-index" class="level2">
+<h2 class="anchored" data-anchor-id="the-big-mac-index">THE BIG MAC INDEX 🍔</h2>
+<p>The <a href="https://en.wikipedia.org/wiki/Big_Mac_Index">Big Mac Index</a> (BMI) was invented by <a href="https://www.economist.com/big-mac-index">The Economist</a> in 1986 as a light-hearted guide to whether currencies are at their “correct” level. It is based on the theory of purchasing-power parity (PPP), with the notion that in the long run, exchange rates should move towards the rate that would equalise the prices of an identical basket of goods and services (in this case, a burger) in any two countries. The BMI has become a global standard, included in several economic textbooks and the subject of dozens of academic studies.</p>
+<p>According to <a href="https://www.visualcapitalist.com/cp/big-mac-index-purchasing-power-parity-burger-inflation/">Visual Capitalist</a>, <em>“given that McDonald’s is one of the biggest companies in the world and the Big Mac is widely available globally, it means that the famous burger can be used as a basic goods comparison between most countries”</em>. Thus, the BMI can be used to show inflation in burger prices across countries over time when compared in the same currency.</p>
+<p>As seen in the visualisation below, there is constant movement in the prices of the Big Mac amongst countries. In some years, Switzerland is the most expensive while Venezuela has taken the top spot due to its hyperinflation problems. Thus, we would like to visually examine the phenomenon of inflation co-movement by looking at the similarities in inflation prices between countries through time, isolate groups with similar characteristics, and determine if the BMI is a suitable proxy to inflation prices.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../image/bigmac.gif" class="img-fluid figure-img" width="469"></p>
+</figure>
+</div>
+</section>
+<section id="problem-statement" class="level2">
+<h2 class="anchored" data-anchor-id="problem-statement">PROBLEM STATEMENT 💫</h2>
+<p>There is a significant gap in making complex economic data accessible to the general public and providing advanced analysis tools for professionals. Existing visualization tools, including government dashboards, often fail to cater effectively to both audiences. To address this, we propose an R Shiny-based interactive tool that leverages publicly available data, the Big Mac Index to simplify the understanding of global financial trends for laypersons while offering in-depth data exploration and modelling capabilities for analysts.</p>
+</section>
+<section id="literature-review" class="level2">
+<h2 class="anchored" data-anchor-id="literature-review">LITERATURE REVIEW 📖</h2>
+<p>According to Tiwari, Abakah, Gil-Alana, &amp; Abakah (2021), co-movement of inflation is mainly fuelled by the fact that “real economic activity is also correlated across countries… As a result, domestic inflation responds to correlated changes in the domestic demand, hence, co-movement in the business cycles could lead to commonality in inflation”. While inflation is commonly measured by Consumer Price Index (CPI), there is not much research conducted on conducting a visual analysis on CPI and inflation. However, our data of BMI share similar characteristics to GDP, other global indices such as the Good Country Index, and socioeconomic indicators from sources such as the World Bank – all these data are spatial-temporal multidimensional data. As pointed out by Priselac (2021), the three main issues of spatial-temporal data is</p>
+<p>1) “the continuous and discrete changes in spatial and non–spatial properties of spatial time object”,</p>
+<p>2) “the influence of collocated neighboring spatial time objects on each other”, and</p>
+<p>3) “space is two-dimensional and can move in an unlimited direction, while time can only move forward, i.e., it is one–dimensional”.</p>
+<p>Some proposed methods are as follow:</p>
+<table class="table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 38%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type of data</th>
+<th>Visual Analytics Methods</th>
+<th>Authors</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Good Country Index,</p>
+<p>Social Progress Index,</p>
+<p>Global Innovation Index,</p>
+<p>Global Creativity Index,</p>
+<p>Social Progress Index,</p>
+<p>Human Development index etc.</p></td>
+<td><ul>
+<li>Spatial autocorrelation (Cluster and outlier analysis)</li>
+<li>Hot spot analysis</li>
+<li>Grouping analysis</li>
+</ul></td>
+<td>Tan &amp; Dramowicz (2016)</td>
+</tr>
+<tr class="even">
+<td>GDP data</td>
+<td><ul>
+<li><p>Spatial clustering</p></li>
+<li><p>Temporal visualization (using streamlines)</p></li>
+<li><p>Interactivity</p></li>
+</ul></td>
+<td>Zhou, et al.&nbsp;(2017)</td>
+</tr>
+<tr class="odd">
+<td>Traffic data</td>
+<td><ul>
+<li><p>Cluster analysis</p></li>
+<li><p>Temporal Fingerprinting Through Circular Heat Maps</p></li>
+<li><p>Spatio-temporal Comparison Through Circular Heat Map Subtraction</p></li>
+<li><p>Temporal Behaviour Characterisation Through Label Maps</p></li>
+</ul></td>
+<td>Dhont, Tsiporkova, Tourwé, &amp; González-Deleito (2020)</td>
+</tr>
+<tr class="even">
+<td>GDP, inflation rate, employment rate, Gini index etc.</td>
+<td><ul>
+<li><p>Cluster Analysis</p></li>
+<li><p>Prediction modelling using Regression and Classification</p></li>
+</ul></td>
+<td>Priselac (2021)</td>
+</tr>
+<tr class="odd">
+<td>World Bank Open data</td>
+<td><ul>
+<li><p>Cluster analysis</p></li>
+<li><p>K-means and PCA</p></li>
+<li><p>Agglomerative Clustering with ‘cosine’ metric and T-SNE</p></li>
+<li><p>Dynamic Time Warping (DTW)</p></li>
+<li><p>DTW Barycenter Averaging with K-Means and T-SNE</p></li>
+<li><p>DTW Barycenter Averaging with KMeans and LSTMAutoencoder</p></li>
+</ul></td>
+<td>Soćko (2023)</td>
+</tr>
+</tbody>
+</table>
+<p>We also acknowledge the impact of imports and exports on inflation co-movement – according to Ho, Sarte, &amp; Schwartzman (2023), “<em>even without global shocks, the trade network alone is sufficient to generate substantial comovement in output growth and inflation</em>”. Such data that traces the economic exchanges between countries are often analysed with network analysis.</p>
+<p>Some proposed methods are as follow:</p>
+<table class="table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 55%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type of data</th>
+<th>Visual Analytics Methods</th>
+<th>Authors</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Export data</td>
+<td><ul>
+<li><p>Network analysis with geo layout algorithm</p></li>
+<li><p>Modularity/Community analysis</p></li>
+<li><p>Topological analysis e.g.&nbsp;betweenness centrality analysis</p></li>
+</ul></td>
+<td>Gönçer-Demiral &amp; İnce-Yenilmez (2022)</td>
+</tr>
+<tr class="even">
+<td>Global trade network data (import and export)</td>
+<td><ul>
+<li><p>Network analysis with aggregation and network backbone extraction method</p></li>
+<li><p>Enrich network information on each country with embedded geographical, cultural and political features</p></li>
+<li><p>ERGM and STERGM</p></li>
+<li><p>Goodness of fit</p></li>
+<li><p>Community analysis</p></li>
+</ul></td>
+<td>Setayesh, Zadeh, &amp; Bahrak (2022)</td>
+</tr>
+</tbody>
+</table>
+<p>As such, given our data is of a spatial-temporal network nature, of particular interest is the article by Wang, et al.&nbsp;(2019) that studied how to visually analyse the relationship between global trade networks and regional instability. They created an “<em>an integration of space, time, and network analysis methods to support the linked analysis of trade network data and conflict events through anomaly detection and correlation analysis across imports, exports and triadic structures</em>” (Wang, et al., 2019).</p>
+<table class="table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 26%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type of data</th>
+<th>Visual Analytics Methods</th>
+<th>Authors</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Trade data, Stability data (governance indicators), Economic data (GDP, GDP per capita)</td>
+<td><ul>
+<li><p>Correlation-based Country-Product Matrix</p></li>
+<li><p>Anomaly Time Series</p></li>
+<li><p>Choropleth view</p></li>
+<li><p>Trade diffusion graph</p></li>
+<li><p>Clustering and Comparison</p></li>
+</ul></td>
+<td>Gönçer-Demiral &amp; İnce-Yenilmez (2022)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="project-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="project-objectives">PROJECT OBJECTIVES 🎯</h2>
+<p>The team endeavors to meet three objectives from this project:</p>
+<p>a. First objective is to analyse the <u><em>Purchasing Power Parity (PPP) utilising the Big Mac Index as a proxy gauge for inflation between countries in a light-hearted manner</em></u>. This will allow users to gain insights on their expenditure power abroad in comparison to their native country. As part of economic indicators, variables such as GDP deflator, GDP per Capita, Consumer Price Index, Imports and Exports, Wages will be used to validate this analysis as a form of univariate and bi-variate analysis.</p>
+<p>b. The second objective would be to <u><em>build a time-series clustering network predictive model</em></u> in a bid to (1) analyse trends and patterns from a selected time period, (years 2000 – 2023), (2) associate the patterns or countries into clusters based on associations/correlations, and (3) forecast projections of BM Index for the next 5 – 10 years as part of a predictive model.</p>
+<p>c. The final objective would be to build an <u><em>interactive dashboard with interactive means for the user to perform fine-tuning methods to gain insights</em></u>. This interactivity should allow a degree of autonomy to users such that they can gain from uni, bi, multi-variate analysis and the Network and Time-Series modelling that have been pre-built at the back-end of our application.1.</p>
+</section>
+<section id="dataset" class="level2">
+<h2 class="anchored" data-anchor-id="dataset">DATASET 📊</h2>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Source</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://github.com/TheEconomist/big-mac-data/blob/master/source-data/big-mac-source-data-v2.csv">Big Mac Index (2000-2023)</a></td>
+<td>The Economist</td>
+<td>This dataset includes semi-annual data from 29 countries and regions. It encompasses local prices of Big Macs, their equivalent in USD and other major currencies like the Euro and CNY, along with both the raw and GDP-adjusted Big Mac Index.</td>
+</tr>
+<tr class="even">
+<td><a href="https://databank.worldbank.org/reports.aspx?source=2&amp;series=NY.GDP.MKTP.KD.ZG&amp;country=">GDP and Related Metrics (2000-2022)</a></td>
+<td>the World Bank</td>
+<td>Annual data covering GDP, GDP per Capita, and inflation rates. This dataset provides an economic context for the countries included in the Big Mac Index.</td>
+</tr>
+<tr class="odd">
+<td><a href="https://data.oecd.org/conversion/exchange-rates.htm">Currency Exchange Rates (From 2000)</a></td>
+<td>OECD</td>
+<td>Exchange rates to USD, complement the Big Mac Index data by offering additional insights into currency valuation trends over time.</td>
+</tr>
+</tbody>
+</table>
+<p>The combination of these datasets provides a comprehensive view of economic indicators, currency valuations, and purchasing power across different regions, enhancing the analytical depth of our project.</p>
+</section>
+<section id="limitations" class="level2">
+<h2 class="anchored" data-anchor-id="limitations">LIMITATIONS ⚙️</h2>
+<p>The team was cognisant of the limitations of the dataset and project. Three limitations were identified:</p>
+<section id="consistency-of-data-set" class="level4">
+<h4 class="anchored" data-anchor-id="consistency-of-data-set">Consistency of Data Set</h4>
+<p>One of the limitations of using Big Mac Index is in its consistency of valuation within a country. The index price inconsistency can be found within the different sub-regions and estates within the countries. To this end, the team will utilise appropriate statistical aggregation as the most appropriate representation of the BM Index of the selected country.</p>
+</section>
+<section id="granularity-of-data" class="level4">
+<h4 class="anchored" data-anchor-id="granularity-of-data">Granularity of Data</h4>
+<p>The next limitation of using the Big Mac Index would be its granularity The prices of sub-ingredients within the Big Mac such as flour, sugar, meat, lettuce and etc, would impact the overall Big Mac Index. The team will be doing a closer study on how this granularity and whether it is significant to stray a coherent analysis.</p>
+</section>
+<section id="effects-of-fiscal-policies" class="level4">
+<h4 class="anchored" data-anchor-id="effects-of-fiscal-policies">Effects of Fiscal Policies</h4>
+<p>Big Mac Prices Valuation would be artificially affected due to fiscal policies that the countries’ governments introduced to suppress the effects of inflation, hence getting an undervalued Big Mac Index.</p>
+</section>
+</section>
+<section id="analysis-tasks" class="level2">
+<h2 class="anchored" data-anchor-id="analysis-tasks">ANALYSIS TASKS 📍</h2>
+<p>This is a list of analytical tasks for our visual analysis of BMI (<em>adapted from</em> Zhou, et al., 2017).</p>
+<section id="spatial-visualisation" class="level4">
+<h4 class="anchored" data-anchor-id="spatial-visualisation">Spatial visualisation</h4>
+<p>We are interested in providing global and local views to show the levels of inflation for different countries in the world. We foresee the following challenges of 1) how can we measure the similarities between different countries with different dimensional features, 2) how can we present the spatial clusters with similar inflation trajectories, 3) how can we present the different spatial clusters, and 4) how can we present a comparative view of inflation trajectories of say two countries of interest?</p>
+</section>
+<section id="temporal-visualisation" class="level4">
+<h4 class="anchored" data-anchor-id="temporal-visualisation">Temporal visualisation</h4>
+<p>We want to show the trajectory of inflation over time in different countries. We foresee the following challenges of 1) how to have a deeper exploration of trajectories of the spatial clusters of interest, 2) how to track consistent spatial clusters across time intervals, 3) how to quantify these changes of spatial clusters over time, and 4) how to identify changing clusters with similar dimensional features over time?</p>
+</section>
+<section id="network-visualisation" class="level4">
+<h4 class="anchored" data-anchor-id="network-visualisation">Network visualisation</h4>
+<p>We want to show the directionality and weight of the trade amongst different countries. We foresee the following challenges of 1) how to investigate the different trade measures of a country of interest, 2) the possible influence between countries on their trade network, and 3), how do we group similar countries based on their trade trajectories and compare their trade networks?</p>
+</section>
+<section id="spatial-temporal-multidimensional-network-visualisation" class="level4">
+<h4 class="anchored" data-anchor-id="spatial-temporal-multidimensional-network-visualisation">Spatial-temporal multidimensional network visualisation</h4>
+<p>We want to integrate the spatial, temporal and network information seamlessly throughout the different visualisations we use. We foresee the challenges of 1) how do we allow quick reference to spatial clusters, 2) how do we showcase the temporal inflation trajectories of spatial clusters of interest, 3) how do we explore other spatial clusters that exhibit similar temporal and network dynamics that indicate inflation?</p>
+</section>
+</section>
+<section id="methodology" class="level2">
+<h2 class="anchored" data-anchor-id="methodology">METHODOLOGY 🔍</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../image/method.jpg" class="img-fluid figure-img" width="610"></p>
+</figure>
+</div>
+<p>Our analytical approach will encompass a structured and iterative data analysis and predictive modeling process, integrating various R libraries to handle specific tasks:</p>
+<section id="data-wrangling" class="level4">
+<h4 class="anchored" data-anchor-id="data-wrangling">Data Wrangling</h4>
+<ul>
+<li>Leveraging R libraries such as `dplyr` for data manipulation and `tidyr` for data tidying, we will extract, clean, and preprocess data from diverse sources, ensuring data quality and consistency. Feature engineering will be conducted to enhance model input.</li>
+</ul>
+</section>
+<section id="data-sense-making" class="level4">
+<h4 class="anchored" data-anchor-id="data-sense-making">Data Sense Making</h4>
+<ul>
+<li><p>Exploratory Data Analysis (EDA): Using `ggplot2` for data visualization, we will conduct univariate and bivariate analyses to uncover patterns and relationships within the Big Mac Index and economic indicators like GDP per capita.</p></li>
+<li><p>Confirmatory Data Analysis (CDA): With `ggstatsplot`, we will perform statistical tests to validate our initial EDA findings, seeking to establish confidence in the observed trends.</p></li>
+<li><p>Multivariate Analysis: Advanced visualization techniques, possibly utilizing `treemap` or `plotly`, will help us depict the multi-faceted relationships in our dataset.</p></li>
+</ul>
+</section>
+<section id="multi-dimensional-time-series-clustering" class="level4">
+<h4 class="anchored" data-anchor-id="multi-dimensional-time-series-clustering">Multi-Dimensional Time Series Clustering</h4>
+<ul>
+<li><p>Geo-visualisation and analysis: Spatial data patterns will be explored using packages such as `sf` and `ggmap` to incorporate geographical context into the Big Mac Index analysis.</p></li>
+<li><p>Time Series Clustering: The `tsclust` package will enable the identification of similar trajectories among countries’ economic indicators over time, inform the clustering of countries based on these time-dependent patterns.</p></li>
+<li><p>Network analysis: Trade relationship patterns between countries will be explored using packages such as ‘visNetwork’ to provide a network analysis to understanding the impact on trade on BMI.</p></li>
+</ul>
+</section>
+<section id="building-a-predictive-model" class="level4">
+<h4 class="anchored" data-anchor-id="building-a-predictive-model">Building a Predictive Model</h4>
+<ul>
+<li><p>Forecasting Model: We will apply time series forecasting techniques, utilizing packages like `forecast` and `prophet`, to predict future Big Mac Index values.</p></li>
+<li><p>Fine Tuning Parameters: Our interactive dashboard, constructed using `shiny`, will allow users to adjust model parameters dynamically, enhancing the model’s applicability to various analytical scenarios</p></li>
+</ul>
+</section>
+</section>
+<section id="r-shiny-app" class="level2">
+<h2 class="anchored" data-anchor-id="r-shiny-app">R SHINY APP 💻</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+User stories (adapted from Priselac, 2021)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>As a casual user, I want to be able to select a country on the map so that I can see the inflation trajectory of my country of interest.</p></li>
+<li><p>As a casual user, I want to see how my country of interest is connected via trade to other countries.</p></li>
+<li><p>As a casual user, I want to be able to compare my country of interest with another country of interest and compare their inflation trajectory.</p></li>
+<li><p>As a casual user, I want to examine a year of interest so that I can see the values of all relevant dimensional features.</p></li>
+<li><p>As a causal user, I want to see how the inflation trajectory changes through the years amongst countries.</p></li>
+<li><p>As a casual user, I want to identify which countries would suffer from the next inflation.</p></li>
+<li><p>As an expert user, I want to be able to zoom into countries with similar inflation trajectories as my country of interest and study what are their similarities and differences in other features.</p></li>
+<li><p>As an expert user, I want to be able to interact with any chart and have a detailed exploration of that chart.</p></li>
+<li><p>As an expert user, I want to tweak the parameters of the models used and compare the results.</p></li>
+<li><p>As an expert user, I want to compare the trade networks involved in countries of similar inflation trajectories.</p></li>
+</ul>
+</div>
+</div>
+<p>Therefore, in response to the need for accessible and nuanced social-economic analysis tools, the R Shiny app demystifies complex financial data for the public while offering robust functionality for experts. Our app will utilise the Big Mac Index and other economic datasets to present a user-friendly interface with powerful analytical capabilities.</p>
+<p>The tool will feature intuitive visualisation options to make complex data comprehensible, alongside advanced functionalities for data visualization, modelling, and hypothesis testing. Users will be able to adjust parameters, explore different modelling scenarios, and derive additional insights that go beyond the standard analyses provided by existing government dashboards. The ultimate goal is to enhance public understanding of global financial and social indicators while offering a sophisticated analysis platform for professional use.</p>
+<section id="key-features" class="level3">
+<h3 class="anchored" data-anchor-id="key-features">Key Features</h3>
+<ul>
+<li><p>Dynamic Univariate Analysis: Users will be able to engage with interactive visualizations like histograms and boxplots to analyze single variables, such as local Big Mac prices, adjusting for inflation, GDP, and evaluating statistical significance.</p></li>
+<li><p>Comparative Bivariate Analysis: The app will feature tools to create scatter plots and correlation matrices, allowing a deep dive into the relationships between pairs of variables like the Big Mac Index and GDP, with functionality to control for economic factors.</p></li>
+<li><p>In-depth Multivariate Analysis: Utilizing treemaps and other multivariate visualization techniques, users can dissect complex relationships by grouping data based on selectable parameters across chosen timeframes.</p></li>
+<li><p>Geo-Spatial Visualization: Interactive thematic maps will showcase the geographical distribution of the Big Mac Index and other indicators, providing visual insights into global economic diversity and purchasing power.</p></li>
+<li><p>Network Visualization: Interactive thematic maps will showcase the trade connections and its magnitude between countries. The map can show the trade dependency of the selected country to other countries. This can be toggled between import and export.</p></li>
+<li><p>Time-Series Analysis and Clustering: Customizable line graphs will depict the evolution of the Big Mac Index, with clustering features to categorize countries with similar economic trajectories, all based on user-defined criteria.</p></li>
+<li><p>Predictive Forecasting: &nbsp;Incorporating time-series forecasting, our app will allow users to project the Big Mac Index and associated economic measures into the future, informed by past and present trends.</p></li>
+</ul>
+</section>
+<section id="additional-features" class="level3">
+<h3 class="anchored" data-anchor-id="additional-features">Additional features</h3>
+<ul>
+<li><p>Customizable EDA and CDA Tools: Users will have the flexibility to change arguments in R directly through the interface, allowing them to choose different statistical tests and measures for Exploratory Data Analysis (EDA) and Confirmatory Data Analysis (CDA), thereby enabling diverse hypothesis testing and validation approaches.</p></li>
+<li><p>Interactive Data Selection: A flexible data selection feature will enable users to curate the dataset by choosing specific countries, time periods, and economic metrics, such as GDP and inflation rates</p></li>
+<li><p>Parameter Tuning Interface: Through sliders, input boxes, and dropdown menus, users will have the agency to fine-tune model parameters, engaging directly with the forecasting and clustering analyses.</p></li>
+</ul>
+</section>
+</section>
+<section id="scope-of-work" class="level2">
+<h2 class="anchored" data-anchor-id="scope-of-work">SCOPE OF WORK ⭐</h2>
+<p>Our project execution will be a collaborative effort with each team member contributing to various phases. To ensure adherence to our timeline and resolution of any disagreements, specific members will take the lead on different phases</p>
+<table class="table">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 17%">
+<col style="width: 28%">
+<col style="width: 47%">
+<col style="width: 2%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Phase</th>
+<th>Task</th>
+<th>Description</th>
+<th>Assignment</th>
+<th>Lead</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>1</p>
+<p>Week 6</p></td>
+<td>Data Wrangling</td>
+<td>Prepare data for further analysis</td>
+<td>All team members will simultaneously review the datasets. Discussions will finalize the datasets for analysis.</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><p>2</p>
+<p>Weeks 7-8</p></td>
+<td>Exploratory Data Analysis (EDA) &amp; Confirmatory Data Analysis (CDA)</td>
+<td>Conducted concurrently to inform potential visualizations and interactive elements for the R Shiny dashboard</td>
+<td><p>Univariate Analysis: Jiayi</p>
+<p>Bivariate Analysis: Vic</p>
+<p>Multivariate Analysis: Firdaus</p></td>
+<td>Jiayi</td>
+</tr>
+<tr class="odd">
+<td><p>3</p>
+<p>Weeks 8-9</p></td>
+<td>Data Modelling</td>
+<td>Focused on clustering and model exploration to determine dashboard parameters</td>
+<td><p>Time Series Clustering: Jiayi</p>
+<p>Forecasting Model Development: Firdaus</p>
+<p>Network Analysis: Vic</p></td>
+<td>Vic</td>
+</tr>
+<tr class="even">
+<td><p>4</p>
+<p>Weeks 9-10</p></td>
+<td>Dashboard Development</td>
+<td>Dashboard deployment</td>
+<td>Each member will implement their respective components as designed in earlier phases. Firdaus will be in charge of developing and ensuring the framework and consistency of the dashboard.</td>
+<td>Firdaus</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="reference" class="level2">
+<h2 class="anchored" data-anchor-id="reference">REFERENCE 🔖</h2>
+<p>Dhont, M., Tsiporkova, E., Tourwé, T., &amp; González-Deleito, N. (2020). Visual Analytics for Extracting Trends from Spatio-temporal Data. <em>Advanced Analytics and Learning on Temporal Data</em>, (pp.&nbsp;122-137).</p>
+<p>Gönçer-Demiral, D., &amp; İnce-Yenilmez, M. (2022). Network analysis of international export pattern. <em>Social Network Analysis and Mining</em>.</p>
+<p>Ho, P., Sarte, P.-D. G., &amp; Schwartzman, F. F. (January, 2023). <em>How Does Trade Impact the Way GDP Growth and Inflation Comove Across Countries?</em> Retrieved from Federal Reserve Bank of Richmond: <a href="https://www.richmondfed.org/publications/research/economic_brief/2023/eb_23-01#:~:text=23%2D01-,How%20Does%20Trade%20Impact%20the%20Way,and%20Inflation%20Comove%20Across%20Countries%3F&amp;text=Seemingly%20small%20international%20trade%20linkages,growth%20and" class="uri">https://www.richmondfed.org/publications/research/economic_brief/2023/eb_23-01#:~:text=23%2D01-,How%20Does%20Trade%20Impact%20the%20Way,and%20Inflation%20Comove%20Across%20Countries%3F&amp;text=Seemingly%20small%20international%20trade%20linkages,growth%20and</a></p>
+<p>Priselac, M. (12 October, 2021). <em>Visual Analytics of Spatial Time.</em> Retrieved from TU Wien Informatics: https://www.academia.edu/download/97273014/Priselac2021-Master_20Thesis.pdf</p>
+<p>Setayesh, A., Zadeh, Z. S., &amp; Bahrak, B. (2022). Analysis of the global trade network using exponential random graph models. <em>Applied Network Science</em>.</p>
+<p>Soćko, K. (19 June, 2023). <em>Clustering Countries Based on Multidimensional Time Series.</em> Retrieved from Medium: <a href="https://medium.com/@kamilasocko/clustering-countries-based-on-multidimensional-time-series-66c7c96120d9">https://medium.com/@kamilasocko/clustering-countries-based-on-multidimensional-time-series-66c7c96120d9</a></p>
+<p>Tan, C., &amp; Dramowicz, K. (2016). Geovisualization and analysis of the Good Country Index. <em>IOP Conference Series: Earth and Environmental Science.</em> Halifax.</p>
+<p>Tiwari, A. K., Abakah, E. J., Gil-Alana, L. A., &amp; Abakah, M. K. (2021). Inflation Co-Movement Dynamics: A Cross-Country Investigation Using a Continuous Wavelet Approach. <em>MDPI</em>, 613.</p>
+<p>Wang, H., Lu, Y., Shutters, S. T., Steptoe, M., Wang, F., Landis, S., &amp; Maciejewski, R. (2019). A Visual Analytics Framework for Spatiotemporal Trade Network Analysis. <em>IEEE TRANSACTIONS ON VISUALIZATION AND COMPUTER GRAPHICS</em>, 331-341.</p>
+<p>Zhou, Z., Li, H., Liu, F., Liu, Y., Huang, C., Tao, Y., . . . Su, W. (2017). Visual analytics of economic features for multivariate spatio-temporal GDP data. <em>Journal of Visualization</em>, 337-350.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
