@@ -13,7 +13,7 @@ website:
       - text: "Prototype"
         menu: 
         - text:'Data Preperation'
-          href:"prototype/data_preperation/data_preperation.html"
+          href: "prototype/data_preperation/data_preperation.html"
         - text: "EDA"
           href: "prototype/EDA/eda.html"
         - text: "Clustering"
