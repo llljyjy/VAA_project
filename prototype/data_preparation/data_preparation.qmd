@@ -1,5 +1,5 @@
 ---
-title: "Data Preperation"
+title: "Data Preparation"
 author: "Li Jiayi"
 date: "02/22/24"
 date-modified: "last-modified"
