@@ -12,7 +12,7 @@ website:
         
       - text: "Prototype"
         menu: 
-        - text: 'Data Preparation'
+        - text: '1.0 Data Preparation'
           href: "prototype/data_preparation/data_preparation.html"
         - text: "EDA"
           href: "prototype/EDA/eda.html"
