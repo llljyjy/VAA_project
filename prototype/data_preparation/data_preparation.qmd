@@ -1,6 +1,6 @@
 ---
 title: "Data Preparation"
-author: "Li Jiayi"
+author: "Firdaus"
 date: "02/22/24"
 date-modified: "last-modified"
 execute:
@@ -9,6 +9,7 @@ execute:
   warning: false
 date-format: long
 ---
+# 1.Lauching R Packages and Data Import
 
 ```{r}
 pacman::p_load(ggrepel, patchwork, 
@@ -27,6 +28,8 @@ big_mac <- read_csv("../../data/big_mac.csv")
 ```{r}
 head(big_mac)
 ```
+
+# 2. Data Wrangling and Merging
 
 check number of records per year
 
@@ -345,7 +348,7 @@ join big mac data with inflation
 joined_data <- left_join(joined_data, inflation_long_format, by = c("country", "year"))
 ```
 
-drop Taiwan, and Euro area, and rename the new dataframe
+drop Taiwan, and Euroarea, and rename the new dataframe
 
 ```{r}
 big_mac_combined <- joined_data %>%
@@ -377,3 +380,97 @@ head(big_mac_combined)
 ```{r}
 summary(big_mac_combined)
 ```
+
+```{r}
+# Summarize data to find the range of years available for each country
+year_summary <- big_mac_combined %>%
+  group_by(country) %>%
+  summarize(StartYear = min(year), EndYear = max(year)) %>%
+  ungroup()
+
+# Print the summary
+print(year_summary)
+
+```
+
+```{r}
+library(dplyr)
+library(tidyr)
+
+# Your previous code to summarize StartYear and EndYear by country
+year_summary <- big_mac_combined %>%
+  group_by(country) %>%
+  summarize(StartYear = min(year), EndYear = max(year)) %>%
+  ungroup()
+
+# Group by StartYear and list countries along with their EndYear
+grouped_summary <- year_summary %>%
+  group_by(StartYear) %>%
+  summarize(Countries = paste(country, "(EndYear:", EndYear, ")", sep = "", collapse = "; "),
+            .groups = 'drop') %>%
+  ungroup()
+
+# Print the grouped summary
+print(grouped_summary)
+
+```
+
+```{r}
+
+filtered_big_mac_data <- big_mac_combined %>%
+  filter(!(year %in% c(2022, 2023)))
+
+# View the first few rows of the filtered dataframe to confirm
+head(filtered_big_mac_data)
+
+```
+
+Checking the missing data and highlighting the countries within the gdp_per_employed and inflation columns
+
+```{r}
+
+missing_values_summary <- filtered_big_mac_data %>%
+  filter(is.na(gdp_per_employed) | is.na(inflation)) %>% # Adjust 'price' to the column you're interested in
+  group_by(country, year) %>%
+  summarise(MissingCount = n(), .groups = 'drop') %>%
+  arrange(country, year)
+
+# Display the summary
+print(missing_values_summary)
+
+```
+
+Impute the the inflation data for Argentina from *\[World Data Info Link\]*(https://www.worlddata.info/america/argentina/inflation-rates.php)
+
+```{r}
+arg_inflation_data <- read_excel("C:/FirGhaz/VAA_project/data/ARG_inflation_Data.xlsx")
+
+
+arg_inflation_data_relevant <- arg_inflation_data %>%
+  select(year, inflation)
+
+
+filtered_big_mac_data_imputed <- filtered_big_mac_data %>%
+  
+  mutate(inflation_arg = ifelse(country == "Argentina", arg_inflation_data$inflation[match(year, arg_inflation_data$year)], NA)) %>%
+  mutate(inflation = ifelse(is.na(inflation) & country == "Argentina", inflation_arg, inflation)) %>%
+  select(-inflation_arg)
+
+filtered_big_mac_data_imputed <- filtered_big_mac_data_imputed %>%
+  select(-ncol(.), -(ncol(.)-1))
+
+print(filtered_big_mac_data_imputed)
+```
+
+Will now, remove the data from Venezuela as it has both missing datas from gdp and inflation 
+
+```{r}
+cleaned_big_mac_data <- filtered_big_mac_data_imputed %>%
+  filter(country != "Venezuela")
+
+# View the first few rows to confirm Venezuela data is removed
+head(cleaned_big_mac_data)
+```
+
+# 3. Building a Choropleth
+
