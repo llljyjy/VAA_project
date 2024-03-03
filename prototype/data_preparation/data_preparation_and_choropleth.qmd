@@ -428,7 +428,6 @@ head(filtered_big_mac_data)
 Checking the missing data and highlighting the countries within the gdp_per_employed and inflation columns
 
 ```{r}
-
 missing_values_summary <- filtered_big_mac_data %>%
   filter(is.na(gdp_per_employed) | is.na(inflation)) %>% # Adjust 'price' to the column you're interested in
   group_by(country, year) %>%
@@ -465,14 +464,52 @@ Will now, remove the data from Venezuela as it has both missing datas from gdp a
 ```{r}
 cleaned_big_mac_data <- filtered_big_mac_data_imputed %>%
   filter(country != "Venezuela")
+```
 
-# View the first few rows to confirm Venezuela data is removed
-head(cleaned_big_mac_data)
+```{r}
+library(dplyr)
+library(tidyr)
+
+# Assuming 'cleaned_big_mac_data' is already loaded into your R session
+
+# Convert year to numeric to ensure proper filtering
+cleaned_big_mac_data$year <- as.numeric(as.character(cleaned_big_mac_data$year))
+
+# Filter for years 2002 to 2021
+data_2002_2021 <- cleaned_big_mac_data %>%
+  filter(year >= 2002 & year <= 2021)
+
+# Drop rows with any NA values in any column
+data_2002_2021_complete <- na.omit(data_2002_2021)
+
+# Identify countries with data for each year from 2002 to 2021
+countries_with_complete_data <- data_2002_2021_complete %>%
+  group_by(country) %>%
+  filter(n_distinct(year) == (2021 - 2002 + 1)) %>%
+  ungroup()
+
+countries_with_complete_data <- countries_with_complete_data %>%
+  rename(
+    bmi_localprice = local_price,
+    bmi_usdprice = usd_price
+  )
+countries_with_complete_data <- countries_with_complete_data %>%
+  mutate(country = ifelse(country == "Britain", "United Kingdom", country),
+         country = ifelse(country == "Czech Republic", "Czech Rep.", country),
+         country = ifelse(country == "South Korea", "Korea", country),
+         country = ifelse(country == "Switzerland", "	
+Switzerland", country))
+
+# View the first few rows to confirm
+head(countries_with_complete_data)
+
+
+
 ```
 
 ```{r}
 # Save cleaned_big_mac_data dataframe to a CSV file
-write.csv(cleaned_big_mac_data, file = "C:/FirGhAZ/VAA_project/data/aspatial/cleaned_big_mac_data.csv")
+write.csv(countries_with_complete_data, file = "C:/FirGhAZ/VAA_project/data/aspatial/countries_with_complete_data.csv")
 ```
 
 # 3. Building a Choropleth map for analysis of metrics
@@ -488,13 +525,13 @@ pacman::p_load(sf, tmap, tidyverse, tmaptools)
 Calling out the object `World`.
 ```{r}
 data("World")
+
 ```
 
 Subsequently, removing the columns selected below which are non-consequential to the project's scope.
 ```{r}
 wmpb_World <- World %>% 
   select(-HPI, -inequality, -footprint, -life_exp, -well_being, -gdp_cap_est)
-
 wmpb_World
 ```
 ## 3.2 Importing Geo-Relational Attributes into the `shp` file
@@ -504,7 +541,7 @@ Next, we will import *cleaned_big_mac_data* file into RStudio and save the file 
 The task will be performed by using *read_csv()* function of **readr** package as shown in the code chunk below.
 
 ```{r}
-BMIdata <- read_csv("C:/FirGhAZ/VAA_project/data/aspatial/cleaned_big_mac_data.csv")
+BMIdata <- read_csv("C:/FirGhAZ/VAA_project/data/aspatial/countries_with_complete_data.csv")
 ```
 ```{r}
 wmpb_World_BMI <- wmpb_World %>% left_join(BMIdata,
@@ -522,8 +559,14 @@ wmpb_World_BMI_2020 <- wmpb_World_BMI %>%
   group_by(name) %>%
   filter(
     any(!is.na(currency_code)) & 
-    any(!is.na(local_price)) & 
-    any(!is.na(usd_price)) & 
+    any(!is.na(bmi_localprice)) & 
+    any(!is.na(bmi_usdprice)) & 
+    any(!is.na(export_usd)) & 
+    any(!is.na(import_usd)) & 
+    any(!is.na(GDP)) & 
+    any(!is.na(gdp_per_capita)) & 
+    any(!is.na(gdp_per_employed)) & 
+    any(!is.na(inflation)) & 
     any(!is.na(year))
   ) %>%
   ungroup()
@@ -541,7 +584,7 @@ write_rds(wmpb_World_BMI_2020, "C:/FirGhAZ/VAA_project/data/rds/wmpb_BMI_cleaned
 tmap_mode("view")
 
 tm <- tm_shape(wmpb_World_BMI_2020) +
-  tm_polygons("inflation", id = "name", popup.vars = c("Big Mac Index" = "usd_price", 
+  tm_polygons("inflation", id = "name", popup.vars = c("Big Mac Index" = "bmi_usdprice", 
                                                        "Inflation" = "inflation", 
                                                        "Population Density" = "pop_est_dens", 
                                                        "GDP per Employed" = "gdp_per_employed",
@@ -559,7 +602,133 @@ tm
 
 
 
+```{r}
+map_imports <- tm_shape(wmpb_World_BMI_2020) +
+  tm_polygons("import_usd", id = "name") + 
+  tm_layout(frame = FALSE)
 
+map_exports <- tm_shape(wmpb_World_BMI_2020) +
+  tm_polygons("export_usd", id = "name") +
+  tm_layout(frame = FALSE)
+
+# Arrange the maps using tm_arrange
+tmap_arrange(map_imports, map_exports, ncol=2)
+```
+
+
+
+```{r}
+library(shiny)
+library(leaflet)
+
+# Assuming 'wmpb_World_BMI_2020' is already loaded and contains 'iso_a3' for country codes,
+# 'import_usd', and 'export_usd' for import and export values.
+
+ui <- fluidPage(
+  fluidRow(
+    column(6, leafletOutput("wmpb_World_BMI_2020")),
+    column(2, leafletOutput("map_imports"), style = "height: 300px;", offset = 1),
+    column(2, leafletOutput("map_exports"), style = "height: 300px;", offest = 1))
+  )
+
+
+server <- function(input, output, session) {
+
+  # Reactive value to store the selected country code
+  selected_country_code <- reactiveVal()
+  
+  output$wmpb_World_BMI_2020 <- renderLeaflet({
+    leaflet(wmpb_World_BMI_2020) %>%
+      addTiles() %>%
+      addPolygons(
+        fillColor = ~colorQuantile(palette = "Greens", domain = wmpb_World_BMI_2020$inflation)(inflation),
+        color = "#BDBDC3",
+        fillOpacity = 0.7,
+        weight = 1,
+        popup = ~paste(name, "<br>Inflation: ", inflation),
+        layerId = ~iso_a3
+      )
+  })
+
+  output$map_imports <- renderLeaflet({
+    leaflet(wmpb_World_BMI_2020) %>%
+      addTiles() %>%
+      addPolygons(
+        fillColor = ~colorQuantile(palette = "Blues", domain = wmpb_World_BMI_2020$import_usd)(import_usd),
+        color = "#BDBDC3",
+        fillOpacity = 0.7,
+        weight = 1,
+        popup = ~paste(name, "<br>Import (USD): ", import_usd),
+        layerId = ~iso_a3
+      )
+  })
+
+  output$map_exports <- renderLeaflet({
+    leaflet(wmpb_World_BMI_2020) %>%
+      addTiles() %>%
+      addPolygons(
+        fillColor = ~colorQuantile(palette = "Reds", domain = wmpb_World_BMI_2020$export_usd)(export_usd),
+        color = "#BDBDC3",
+        fillOpacity = 0.7,
+        weight = 1,
+        popup = ~paste(name, "<br>Export (USD): ", export_usd),
+        layerId = ~iso_a3
+      )
+  })
+
+  observe({
+    click <- input$wmpb_World_BMI_2020_click
+    if (!is.null(click)) {
+      selected_country_code(click$id)
+    }
+  })
+  
+  observe({
+    click <- input$map_imports_click
+    if (!is.null(click)) {
+      selected_country_code(click$id)
+    }
+  })
+
+  observe({
+    click <- input$map_exports_click
+    if (!is.null(click)) {
+      selected_country_code(click$id)
+    }
+  })
+
+  observe({
+    code <- selected_country_code()
+    if (!is.null(code)) {
+      leafletProxy("map_imports") %>%
+        clearShapes() %>%
+        addPolygons(
+          fillColor = ~colorQuantile(palette = "Blues", domain = wmpb_World_BMI_2020$import_usd)(import_usd),
+          color = ~ifelse(iso_a3 == code, "yellow", "#BDBDC3"),
+          fillOpacity = 0.7,
+          weight = 1,
+          popup = ~paste(name, "<br>Import (USD): ", import_usd),
+          layerId = ~iso_a3
+        )
+      
+      leafletProxy("map_exports") %>%
+        clearShapes() %>%
+        addPolygons(
+          fillColor = ~colorQuantile(palette = "Reds", domain = wmpb_World_BMI_2020$export_usd)(export_usd),
+          color = ~ifelse(iso_a3 == code, "yellow", "#BDBDC3"),
+          fillOpacity = 0.7,
+          weight = 1,
+          popup = ~paste(name, "<br>Export (USD): ", export_usd),
+          layerId = ~iso_a3
+        )
+    }
+  })
+}
+
+shinyApp(ui, server)
+
+
+```
 
 
 
