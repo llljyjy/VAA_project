@@ -232,7 +232,7 @@ join big mac data with gdp_per_capita
 joined_data <- left_join(joined_data, gdp_capita_long_format, by = c("country", "year"))
 ```
 
-import GPD per emploed data
+import GPD per employed data
 
 ```{r}
 gdp_employed <- read_csv("../../data/gdp_employed.csv")
@@ -443,6 +443,7 @@ print(missing_values_summary)
 Impute the the inflation data for Argentina from *\[World Data Info Link\]*(https://www.worlddata.info/america/argentina/inflation-rates.php)
 
 ```{r}
+library(readxl)
 arg_inflation_data <- read_excel("C:/FirGhaz/VAA_project/data/ARG_inflation_Data.xlsx")
 
 
@@ -455,9 +456,6 @@ filtered_big_mac_data_imputed <- filtered_big_mac_data %>%
   mutate(inflation_arg = ifelse(country == "Argentina", arg_inflation_data$inflation[match(year, arg_inflation_data$year)], NA)) %>%
   mutate(inflation = ifelse(is.na(inflation) & country == "Argentina", inflation_arg, inflation)) %>%
   select(-inflation_arg)
-
-filtered_big_mac_data_imputed <- filtered_big_mac_data_imputed %>%
-  select(-ncol(.), -(ncol(.)-1))
 
 print(filtered_big_mac_data_imputed)
 ```
@@ -472,5 +470,111 @@ cleaned_big_mac_data <- filtered_big_mac_data_imputed %>%
 head(cleaned_big_mac_data)
 ```
 
-# 3. Building a Choropleth
+```{r}
+# Save cleaned_big_mac_data dataframe to a CSV file
+write.csv(cleaned_big_mac_data, file = "C:/FirGhAZ/VAA_project/data/aspatial/cleaned_big_mac_data.csv")
+```
+
+# 3. Building a Choropleth map for analysis of metrics
+
+## 3.1 Loading the required R packages. 
+
+The function `World` is a spatial object from the `sf` package. It is a special column that contains geometry for each row; called 8polygons*.
+
+```{r}
+pacman::p_load(sf, tmap, tidyverse)
+```
+
+Calling out the object `World`.
+```{r}
+data("World")
+```
+
+Subsequently, removing the columns selected below which are non-consequential to the project's scope.
+```{r}
+wmpb_World <- World %>% 
+  select(-HPI, -inequality, -footprint, -life_exp, -well_being, -gdp_cap_est)
+
+wmpb_World
+```
+## 3.2 Importing Geo-Relational Attributes into the `shp` file
+
+Next, we will import *cleaned_big_mac_data* file into RStudio and save the file into an R dataframe called *Big_mac index*.
+
+The task will be performed by using *read_csv()* function of **readr** package as shown in the code chunk below.
+
+```{r}
+BMIdata <- read_csv("C:/FirGhAZ/VAA_project/data/aspatial/cleaned_big_mac_data.csv")
+```
+```{r}
+wmpb_World_BMI <- wmpb_World %>% left_join(BMIdata,
+                          by = c("name" = "country"))
+```
+
+Merged_data_cleaned will exclude countries with all NA values for the specified columns and filtering the selected year needed.
+
+```{r}
+
+library(dplyr)
+
+wmpb_World_BMI <- wmpb_World_BMI %>%
+  filter(year == 2020) %>% 
+  group_by(name) %>%
+  filter(
+    any(!is.na(currency_code)) & 
+    any(!is.na(local_price)) & 
+    any(!is.na(usd_price)) & 
+    any(!is.na(year))
+  ) %>%
+  ungroup()
+
+```
+
+
+```{r}
+write_rds(wmpb_World_BMI, "C:/FirGhAZ/VAA_project/data/rds/wmpb_BMI_cleaned.rds")
+```
+
+
+
+```{r}
+tmap_mode("view")
+qtm(wmpb_World_BMI, 
+    fill = "inflation")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
