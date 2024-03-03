@@ -466,12 +466,6 @@ Will now, remove the data from Venezuela as it has both missing datas from gdp a
 cleaned_big_mac_data <- filtered_big_mac_data_imputed %>%
   filter(country != "Venezuela")
 
-flags <- read.csv("C:/FirGhaz/VAA_project/data/Flags.csv")
-
-# Join the flags dataframe to the main dataframe
-cleaned_big_mac_data <- cleaned_big_mac_data %>%
-  left_join(flags, by = "country")
-
 # View the first few rows to confirm Venezuela data is removed
 head(cleaned_big_mac_data)
 ```
@@ -553,8 +547,8 @@ tm <- tm_shape(wmpb_World_BMI_2020) +
                                                        "GDP per Employed" = "gdp_per_employed",
                                                        "Import(USD)" = "import_usd",
                                                        "Export(USD)" = "export_usd"),
-            popup.format = list(usd_price = list(digits =1), pop_est_dens = list(digits = 1), gdp_per_employed = list(digits = 0), inflation = list(digits = 1))
-  ) +
+            popup.format = list(pop_est_dens = list(digits = 1), gdp_per_employed = list(digits = 0), inflation = list(digits = 1)
+  )) +
   tm_layout()
 
 tm
