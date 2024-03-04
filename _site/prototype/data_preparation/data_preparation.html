@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -81,7 +81,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -90,6 +96,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -104,9 +111,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">ISSS608-G1</span>
     </a>
@@ -118,42 +125,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-proposal" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-proposal" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Proposal</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-proposal">    
         <li>
-    <a class="dropdown-item" href="../../proposal/proposal.html" rel="" target="">
+    <a class="dropdown-item" href="../../proposal/proposal.html">
  <span class="dropdown-text">Project Proposal</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-prototype" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-prototype" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Prototype</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-prototype">    
         <li>
-    <a class="dropdown-item" href="../../prototype/data_preparation/data_preparation.html" rel="" target="">
+    <a class="dropdown-item" href="../../prototype/data_preparation/data_preparation_and_cleaning.html">
  <span class="dropdown-text">1.0 Data Preparation</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../prototype/EDA/eda.html" rel="" target="">
+    <a class="dropdown-item" href="../../prototype/EDA/eda.html">
  <span class="dropdown-text">EDA</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../prototype/modeling/clustering.html" rel="" target="">
+    <a class="dropdown-item" href="../../prototype/modeling/clustering.html">
  <span class="dropdown-text">Clustering</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-project" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-project" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Project</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-project">    
         <li>
-    <a class="dropdown-item" href="../../project/website.html" rel="" target="">
+    <a class="dropdown-item" href="../../project/website.html">
  <span class="dropdown-text">website</span></a>
   </li>  
     </ul>
@@ -161,17 +168,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html" rel="" target="">
- <span class="menu-text">Home</span></a>
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -211,14 +218,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">February 23, 2024</p>
+      <p class="date-modified">March 1, 2024</p>
     </div>
   </div>
     
   </div>
   
 
+
 </header>
+
 
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(ggrepel, patchwork, </span>
@@ -229,21 +238,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>import big mac data</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>big_mac <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../../data/big_mac.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>big_mac <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/big_mac.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(big_mac)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 8
-  name        iso_a3 currency_code local_price dollar_ex GDP_dollar GDP_local
-  &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;
-1 Argentina   ARG    ARS                  2.5       1         8709.     8709.
-2 Australia   AUS    AUD                  2.59      1.68     21762.    33723.
-3 Brazil      BRA    BRL                  2.95      1.79      3501.     6351.
-4 Canada      CAN    CAD                  2.85      1.47     22341.    33191.
-5 Switzerland CHE    CHF                  5.9       1.7      41768.    62742.
-6 Chile       CHL    CLP               1260       514         4986.  2536663.
-# ℹ 1 more variable: date &lt;date&gt;</code></pre>
+<pre><code># A tibble: 6 × 9
+  date  iso_a3 currency_code name  local_price dollar_ex dollar_price GDP_bigmac
+  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;         &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+1 1/4/… ARG    ARS           Arge…        2.5      1             2.5       7803.
+2 1/4/… AUS    AUD           Aust…        2.59     1.68          1.54     29166.
+3 1/4/… BRA    BRL           Braz…        2.95     1.79          1.65      4823.
+4 1/4/… GBR    GBP           Brit…        1.9      0.633         3.00     20977.
+5 1/4/… CAN    CAD           Cana…        2.85     1.47          1.94     26087.
+6 1/4/… CHL    CLP           Chile     1260      514             2.45      4510.
+# ℹ 1 more variable: adj_price &lt;dbl&gt;</code></pre>
 </div>
 </div>
 <p>check number of records per year</p>
@@ -282,7 +291,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>add in export &amp; import data</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>export <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../../data/export.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>export <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/export.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(export)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -333,7 +342,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>add in gdp data</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>gdp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../../data/gdp.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>gdp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/gdp.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gdp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -398,7 +407,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>import GPD per Capita data</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>gdp_capita <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../../data/gdp_capita.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>gdp_capita <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/gdp_capita.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gdp_capita)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -461,9 +470,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>joined_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(joined_data, gdp_capita_long_format, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"country"</span>, <span class="st">"year"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>import GPD per emploed data</p>
+<p>import GPD per employed data</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>gdp_employed <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../../data/gdp_employed.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>gdp_employed <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/gdp_employed.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gdp_employed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -528,7 +537,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>import inflation data</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>inflation <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../../data/inflation.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>inflation <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/inflation.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(inflation)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -604,12 +613,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # Groups:   year, country [6]
   country  currency_code local_price usd_price  year export_usd import_usd GDP  
   &lt;chr&gt;    &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;
-1 Argenti… ARS                  2.5      1      2000  28181510.  26564033. 2.84…
-2 Austral… AUD                  2.59     1.68   2000  77830934.  69687520. 4.16…
-3 Brazil   BRL                  2.95     1.79   2000  71812886.  58730967. 6.55…
-4 Britain  GBP                  1.9      0.633  2000 332635324. 281586694. 1.66…
-5 Canada   CAD                  2.85     1.47   2000 253422986. 288530016. 7.44…
-6 Chile    CLP               1260      514      2000  19475339.  19627101. 7833…
+1 Argenti… ARS                  2.5      1         1         NA         NA &lt;NA&gt; 
+2 Austral… AUD                  2.59     1.68      1         NA         NA &lt;NA&gt; 
+3 Azerbai… AZN                  3.95     1.70      1         NA         NA &lt;NA&gt; 
+4 Bahrain  BHD                  1.5      0.377     1         NA         NA &lt;NA&gt; 
+5 Brazil   BRL                  2.95     1.79      1         NA         NA &lt;NA&gt; 
+6 Britain  GBP                  1.9      0.633     1         NA         NA &lt;NA&gt; 
 # ℹ 3 more variables: gdp_per_capita &lt;chr&gt;, gdp_per_employed &lt;chr&gt;,
 #   inflation &lt;chr&gt;</code></pre>
 </div>
@@ -629,46 +638,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 11
 # Groups:   year, country [6]
-  country   currency_code local_price usd_price  year export_usd import_usd
-  &lt;chr&gt;     &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
-1 Argentina ARS                  2.5      1      2000  28181510.  26564033.
-2 Australia AUD                  2.59     1.68   2000  77830934.  69687520.
-3 Brazil    BRL                  2.95     1.79   2000  71812886.  58730967.
-4 Britain   GBP                  1.9      0.633  2000 332635324. 281586694.
-5 Canada    CAD                  2.85     1.47   2000 253422986. 288530016.
-6 Chile     CLP               1260      514      2000  19475339.  19627101.
-# ℹ 4 more variables: GDP &lt;dbl&gt;, gdp_per_capita &lt;dbl&gt;, gdp_per_employed &lt;dbl&gt;,
+  country  currency_code local_price usd_price  year export_usd import_usd   GDP
+  &lt;chr&gt;    &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;
+1 Argenti… ARS                  2.5      1         1         NA         NA    NA
+2 Austral… AUD                  2.59     1.68      1         NA         NA    NA
+3 Azerbai… AZN                  3.95     1.70      1         NA         NA    NA
+4 Bahrain  BHD                  1.5      0.377     1         NA         NA    NA
+5 Brazil   BRL                  2.95     1.79      1         NA         NA    NA
+6 Britain  GBP                  1.9      0.633     1         NA         NA    NA
+# ℹ 3 more variables: gdp_per_capita &lt;dbl&gt;, gdp_per_employed &lt;dbl&gt;,
 #   inflation &lt;dbl&gt;</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(big_mac_combined)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   country          currency_code       local_price         usd_price      
- Length:1184        Length:1184        Min.   :       0   Min.   :      0  
- Class :character   Class :character   1st Qu.:       5   1st Qu.:      1  
- Mode  :character   Mode  :character   Median :      15   Median :      6  
-                                       Mean   :   25068   Mean   :   7415  
-                                       3rd Qu.:      90   3rd Qu.:     35  
-                                       Max.   :16020000   Max.   :3613989  
-                                                                           
-      year        export_usd          import_usd             GDP           
- Min.   :2000   Min.   :4.279e+06   Min.   :3.075e+06   Min.   :1.125e+10  
- 1st Qu.:2008   1st Qu.:5.275e+07   1st Qu.:4.630e+07   1st Qu.:1.727e+11  
- Median :2014   Median :1.244e+08   Median :1.116e+08   Median :3.436e+11  
- Mean   :2014   Mean   :2.560e+08   Mean   :2.382e+08   Mean   :1.173e+12  
- 3rd Qu.:2019   3rd Qu.:3.023e+08   3rd Qu.:2.772e+08   3rd Qu.:8.926e+11  
- Max.   :2023   Max.   :3.292e+09   Max.   :3.383e+09   Max.   :2.544e+13  
-                NA's   :141         NA's   :141         NA's   :77         
- gdp_per_capita   gdp_per_employed   inflation      
- Min.   :   739   Min.   :  6155   Min.   : -3.686  
- 1st Qu.:  6048   1st Qu.: 36304   1st Qu.:  1.360  
- Median : 16708   Median : 68168   Median :  2.754  
- Mean   : 24495   Mean   : 68820   Mean   :  4.801  
- 3rd Qu.: 41067   3rd Qu.: 97440   3rd Qu.:  5.078  
- Max.   :106177   Max.   :223093   Max.   :254.949  
- NA's   :77       NA's   :89       NA's   :107      </code></pre>
+<pre><code>   country          currency_code       local_price        usd_price        
+ Length:122         Length:122         Min.   :      1   Min.   :      0.3  
+ Class :character   Class :character   1st Qu.:      7   1st Qu.:      3.4  
+ Mode  :character   Mode  :character   Median :     25   Median :      8.2  
+                                       Mean   :  34469   Mean   :  11489.1  
+                                       3rd Qu.:    134   3rd Qu.:     51.1  
+                                       Max.   :4000000   Max.   :1324500.0  
+                                                                            
+      year          export_usd    import_usd       GDP      gdp_per_capita
+ Min.   : 1.000   Min.   : NA   Min.   : NA   Min.   : NA   Min.   : NA   
+ 1st Qu.: 1.000   1st Qu.: NA   1st Qu.: NA   1st Qu.: NA   1st Qu.: NA   
+ Median : 9.000   Median : NA   Median : NA   Median : NA   Median : NA   
+ Mean   : 7.025   Mean   :NaN   Mean   :NaN   Mean   :NaN   Mean   :NaN   
+ 3rd Qu.:14.000   3rd Qu.: NA   3rd Qu.: NA   3rd Qu.: NA   3rd Qu.: NA   
+ Max.   :14.000   Max.   : NA   Max.   : NA   Max.   : NA   Max.   : NA   
+                  NA's   :122   NA's   :122   NA's   :122   NA's   :122   
+ gdp_per_employed   inflation  
+ Min.   : NA      Min.   : NA  
+ 1st Qu.: NA      1st Qu.: NA  
+ Median : NA      Median : NA  
+ Mean   :NaN      Mean   :NaN  
+ 3rd Qu.: NA      3rd Qu.: NA  
+ Max.   : NA      Max.   : NA  
+ NA's   :122      NA's   :122  </code></pre>
 </div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(big_mac_combined,</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="st">"data/cleaned_dataset.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -753,10 +766,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -766,8 +778,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -780,6 +801,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -823,6 +963,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -848,6 +989,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -908,6 +1075,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

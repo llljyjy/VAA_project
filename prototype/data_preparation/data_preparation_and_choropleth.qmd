@@ -9,6 +9,7 @@ execute:
   warning: false
 date-format: long
 ---
+
 # 1.Lauching R Packages and Data Import
 
 ```{r}
@@ -22,7 +23,7 @@ pacman::p_load(ggrepel, patchwork,
 import big mac data
 
 ```{r}
-big_mac <- read_csv("../../data/big_mac.csv")
+big_mac <- read_csv("data/big_mac.csv")
 ```
 
 ```{r}
@@ -31,11 +32,18 @@ head(big_mac)
 
 # 2. Data Wrangling and Merging
 
+convert date to year
+
+```{r}
+big_mac$date <- dmy(big_mac$date)
+big_mac$year <- year(big_mac$date)
+
+big_mac
+```
+
 check number of records per year
 
 ```{r}
-big_mac$date <- as.Date(big_mac$date)
-big_mac$year <- year(big_mac$date)
 
 entries_per_year_country <- big_mac %>%
   group_by(year, name) %>%
@@ -50,7 +58,7 @@ first_records <- big_mac %>%
   slice(1)
 ```
 
-only keep name, rename as country, **currency_code, local_price, dollar_ex rename to usd_price, year**
+rename some variables
 
 ```{r}
 big_mac_new <- first_records %>%
@@ -76,7 +84,7 @@ big_mac_new <- big_mac_new %>%
 add in export & import data
 
 ```{r}
-export <- read_csv("../../data/export.csv")
+export <- read_csv("data/export.csv")
 ```
 
 ```{r}
@@ -119,7 +127,7 @@ joined_data <- left_join(big_mac_new, export_data, by = c("country", "year"))
 add in gdp data
 
 ```{r}
-gdp <- read_csv("../../data/gdp.csv")
+gdp <- read_csv("data/gdp.csv")
 ```
 
 ```{r}
@@ -177,7 +185,7 @@ joined_data <- left_join(joined_data, gdp_long_format, by = c("country", "year")
 import GPD per Capita data
 
 ```{r}
-gdp_capita <- read_csv("../../data/gdp_capita.csv")
+gdp_capita <- read_csv("data/gdp_capita.csv")
 ```
 
 ```{r}
@@ -235,7 +243,7 @@ joined_data <- left_join(joined_data, gdp_capita_long_format, by = c("country", 
 import GPD per employed data
 
 ```{r}
-gdp_employed <- read_csv("../../data/gdp_employed.csv")
+gdp_employed <- read_csv("data/gdp_employed.csv")
 ```
 
 ```{r}
@@ -293,7 +301,7 @@ joined_data <- left_join(joined_data, gdp_employed_long_format, by = c("country"
 import inflation data
 
 ```{r}
-inflation <- read_csv("../../data/inflation.csv")
+inflation <- read_csv("data/inflation.csv")
 ```
 
 ```{r}
@@ -348,7 +356,7 @@ join big mac data with inflation
 joined_data <- left_join(joined_data, inflation_long_format, by = c("country", "year"))
 ```
 
-drop Taiwan, and Euroarea, and rename the new dataframe
+drop Taiwan, and Euroarea during to missing data, and rename the new dataframe
 
 ```{r}
 big_mac_combined <- joined_data %>%
@@ -443,7 +451,7 @@ Impute the the inflation data for Argentina from *\[World Data Info Link\]*(http
 
 ```{r}
 library(readxl)
-arg_inflation_data <- read_excel("C:/FirGhaz/VAA_project/data/ARG_inflation_Data.xlsx")
+arg_inflation_data <- read_excel("data/ARG_inflation_Data.xlsx")
 
 
 arg_inflation_data_relevant <- arg_inflation_data %>%
@@ -459,7 +467,7 @@ filtered_big_mac_data_imputed <- filtered_big_mac_data %>%
 print(filtered_big_mac_data_imputed)
 ```
 
-Will now, remove the data from Venezuela as it has both missing datas from gdp and inflation 
+Will now, remove the data from Venezuela as it has both missing datas from gdp and inflation
 
 ```{r}
 cleaned_big_mac_data <- filtered_big_mac_data_imputed %>%
@@ -509,31 +517,34 @@ head(countries_with_complete_data)
 
 ```{r}
 # Save cleaned_big_mac_data dataframe to a CSV file
-write.csv(countries_with_complete_data, file = "C:/FirGhAZ/VAA_project/data/aspatial/countries_with_complete_data.csv")
+write.csv(countries_with_complete_data, file = "data/countries_with_complete_data.csv")
 ```
 
 # 3. Building a Choropleth map for analysis of metrics
 
-## 3.1 Loading the required R packages. 
+## 3.1 Loading the required R packages.
 
-The function `World` is a spatial object from the `sf` package. It is a special column that contains geometry for each row; called 8polygons*.
+The function `World` is a spatial object from the `sf` package. It is a special column that contains geometry for each row; called 8polygons\*.
 
 ```{r}
 pacman::p_load(sf, tmap, tidyverse, tmaptools)
 ```
 
 Calling out the object `World`.
+
 ```{r}
 data("World")
 
 ```
 
 Subsequently, removing the columns selected below which are non-consequential to the project's scope.
+
 ```{r}
 wmpb_World <- World %>% 
   select(-HPI, -inequality, -footprint, -life_exp, -well_being, -gdp_cap_est)
 wmpb_World
 ```
+
 ## 3.2 Importing Geo-Relational Attributes into the `shp` file
 
 Next, we will import *cleaned_big_mac_data* file into RStudio and save the file into an R dataframe called *Big_mac index*.
@@ -543,6 +554,7 @@ The task will be performed by using *read_csv()* function of **readr** package a
 ```{r}
 BMIdata <- read_csv("C:/FirGhAZ/VAA_project/data/aspatial/countries_with_complete_data.csv")
 ```
+
 ```{r}
 wmpb_World_BMI <- wmpb_World %>% left_join(BMIdata,
                           by = c("name" = "country"))
@@ -573,12 +585,9 @@ wmpb_World_BMI_2020 <- wmpb_World_BMI %>%
 
 ```
 
-
 ```{r}
 write_rds(wmpb_World_BMI_2020, "C:/FirGhAZ/VAA_project/data/rds/wmpb_BMI_cleaned_2020.rds")
 ```
-
-
 
 ```{r}
 tmap_mode("view")
@@ -599,9 +608,6 @@ tm
    #fill = "usd_price")
 ```
 
-
-
-
 ```{r}
 map_imports <- tm_shape(wmpb_World_BMI_2020) +
   tm_polygons("import_usd", id = "name") + 
@@ -614,8 +620,6 @@ map_exports <- tm_shape(wmpb_World_BMI_2020) +
 # Arrange the maps using tm_arrange
 tmap_arrange(map_imports, map_exports, ncol=2)
 ```
-
-
 
 ```{r}
 library(shiny)
@@ -729,34 +733,3 @@ shinyApp(ui, server)
 
 
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
