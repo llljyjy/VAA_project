@@ -62,12 +62,15 @@ rename some variables
 
 ```{r}
 big_mac_new <- first_records %>%
-  select(
-    country = name, 
-    currency_code, 
-    local_price, 
-    usd_price = dollar_ex, 
-    year
+  select(country = name, 
+         year, 
+         currency_code, 
+         bmi_localprice = local_price, 
+         bmi_usd_price = dollar_price, 
+         bmi_gdpadj_price = adj_price, 
+         dollar_ex, 
+         GDP_bigmac
+    
   )
 ```
 
@@ -497,16 +500,10 @@ countries_with_complete_data <- data_2002_2021_complete %>%
   ungroup()
 
 countries_with_complete_data <- countries_with_complete_data %>%
-  rename(
-    bmi_localprice = local_price,
-    bmi_usdprice = usd_price
-  )
-countries_with_complete_data <- countries_with_complete_data %>%
   mutate(country = ifelse(country == "Britain", "United Kingdom", country),
          country = ifelse(country == "Czech Republic", "Czech Rep.", country),
          country = ifelse(country == "South Korea", "Korea", country),
-         country = ifelse(country == "Switzerland", "	
-Switzerland", country))
+         country = ifelse(country == "Switzerland", "Switzerland", country))
 
 # View the first few rows to confirm
 head(countries_with_complete_data)
