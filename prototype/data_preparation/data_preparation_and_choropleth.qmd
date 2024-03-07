@@ -552,7 +552,7 @@ Next, we will import *cleaned_big_mac_data* file into RStudio and save the file 
 The task will be performed by using *read_csv()* function of **readr** package as shown in the code chunk below.
 
 ```{r}
-BMIdata <- read_csv("C:/FirGhAZ/VAA_project/data/aspatial/countries_with_complete_data.csv")
+BMIdata <- read_csv("data/countries_with_complete_data.csv")
 ```
 
 ```{r}
@@ -586,7 +586,7 @@ wmpb_World_BMI_2020 <- wmpb_World_BMI %>%
 ```
 
 ```{r}
-write_rds(wmpb_World_BMI_2020, "C:/FirGhAZ/VAA_project/data/rds/wmpb_BMI_cleaned_2020.rds")
+write_rds(wmpb_World_BMI_2020, "data/wmpb_BMI_cleaned_2020.rds")
 ```
 
 ```{r}

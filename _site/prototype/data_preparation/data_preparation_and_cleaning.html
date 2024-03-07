@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.549">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jiayi, Firdaus &amp; Victoria">
+<meta name="dcterms.date" content="2024-02-22">
+
+<title>ISSS608-G1 - Data Preparation &amp; Cleaning</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">ISSS608-G1</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-proposal" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Proposal</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-proposal">    
+        <li>
+    <a class="dropdown-item" href="../../proposal/proposal.html">
+ <span class="dropdown-text">Project Proposal</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-prototype" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Prototype</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-prototype">    
+        <li>
+    <a class="dropdown-item" href="../../prototype/data_preparation/data_preparation_and_cleaning.html">
+ <span class="dropdown-text">1.0 Data Preparation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../prototype/EDA/eda.html">
+ <span class="dropdown-text">EDA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../prototype/modeling/clustering.html">
+ <span class="dropdown-text">Clustering</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-project" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Project</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-project">    
+        <li>
+    <a class="dropdown-item" href="../../project/website.html">
+ <span class="dropdown-text">website</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#launching-r-packages-and-data-import" id="toc-launching-r-packages-and-data-import" class="nav-link active" data-scroll-target="#launching-r-packages-and-data-import">1.Launching R Packages and Data Import</a></li>
+  <li><a href="#data-wrangling-and-merging" id="toc-data-wrangling-and-merging" class="nav-link" data-scroll-target="#data-wrangling-and-merging">2. Data Wrangling and Merging</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Data Preparation &amp; Cleaning</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jiayi, Firdaus &amp; Victoria </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 22, 2024</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">March 5, 2024</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="launching-r-packages-and-data-import" class="level1">
+<h1>1.Launching R Packages and Data Import</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(ggrepel, patchwork, </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               ggthemes, hrbrthemes,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               ggdist, ggridges,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>               colorspace,ggstatsplot, </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>               tidyverse) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>import big mac data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>big_mac <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/big_mac.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(big_mac)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 9
+  date  iso_a3 currency_code name  local_price dollar_ex dollar_price GDP_bigmac
+  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;         &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+1 1/4/… ARG    ARS           Arge…        2.5      1             2.5       7803.
+2 1/4/… AUS    AUD           Aust…        2.59     1.68          1.54     29166.
+3 1/4/… BRA    BRL           Braz…        2.95     1.79          1.65      4823.
+4 1/4/… GBR    GBP           Brit…        1.9      0.633         3.00     20977.
+5 1/4/… CAN    CAD           Cana…        2.85     1.47          1.94     26087.
+6 1/4/… CHL    CLP           Chile     1260      514             2.45      4510.
+# ℹ 1 more variable: adj_price &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="data-wrangling-and-merging" class="level1">
+<h1>2. Data Wrangling and Merging</h1>
+<p>convert date to year</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>big_mac<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">dmy</span>(big_mac<span class="sc">$</span>date)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>big_mac<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">year</span>(big_mac<span class="sc">$</span>date)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>big_mac</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,489 × 10
+   date       iso_a3 currency_code name       local_price dollar_ex dollar_price
+   &lt;date&gt;     &lt;chr&gt;  &lt;chr&gt;         &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;
+ 1 2000-04-01 ARG    ARS           Argentina         2.5      1             2.5 
+ 2 2000-04-01 AUS    AUD           Australia         2.59     1.68          1.54
+ 3 2000-04-01 BRA    BRL           Brazil            2.95     1.79          1.65
+ 4 2000-04-01 GBR    GBP           Britain           1.9      0.633         3.00
+ 5 2000-04-01 CAN    CAD           Canada            2.85     1.47          1.94
+ 6 2000-04-01 CHL    CLP           Chile          1260      514             2.45
+ 7 2000-04-01 CHN    CNY           China             9.9      8.28          1.20
+ 8 2000-04-01 CZE    CZK           Czech Rep…       54.4     39.1           1.39
+ 9 2000-04-01 DNK    DKK           Denmark          24.8      8.04          3.08
+10 2000-04-01 EUZ    EUR           Euro area         2.56     1.08          2.38
+# ℹ 1,479 more rows
+# ℹ 3 more variables: GDP_bigmac &lt;dbl&gt;, adj_price &lt;dbl&gt;, year &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>check number of records per year</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>entries_per_year_country <span class="ot">&lt;-</span> big_mac <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, name) <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">count =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As most countries only contains 1 record each year, the earliest record for each year will be kept for easier manipulation</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>first_records <span class="ot">&lt;-</span> big_mac <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, name) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>rename some variables</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>big_mac_new <span class="ot">&lt;-</span> first_records <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">country =</span> name, </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>         year, </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>         currency_code, </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">bmi_localprice =</span> local_price, </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">bmi_usd_price =</span> dollar_price, </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">bmi_gdpadj_price =</span> adj_price, </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>         dollar_ex, </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>         GDP_bigmac</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>some of country name is not consistent, rename</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>big_mac_new <span class="ot">&lt;-</span> big_mac_new <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">case_when</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'United Arab Emirates'</span> <span class="sc">~</span> <span class="st">'UAE'</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> country  </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>add in export &amp; import data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>export <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/export.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(export)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 33
+  `Partner Name`  Year `Export (US$ Thousand)` `Import (US$ Thousand)`
+  &lt;chr&gt;          &lt;dbl&gt;                   &lt;dbl&gt;                   &lt;dbl&gt;
+1 Aruba           1988                   3498.                    328.
+2 Afghanistan     1988                 213030.                  54460.
+3 Angola          1988                 375528.                 370703.
+4 Anguila         1988                    367.                      4 
+5 Albania         1988                  30104.                  47709.
+6 Andorra         1988                  67924.                   3284.
+# ℹ 29 more variables: `Export Product Share (%)` &lt;dbl&gt;,
+#   `Import Product Share (%)` &lt;dbl&gt;, `Revealed comparative advantage` &lt;dbl&gt;,
+#   `World Growth (%)` &lt;dbl&gt;, `Country Growth (%)` &lt;dbl&gt;,
+#   `AHS Simple Average (%)` &lt;dbl&gt;, `AHS Weighted Average (%)` &lt;dbl&gt;,
+#   `AHS Total Tariff Lines` &lt;dbl&gt;,
+#   `AHS Dutiable Tariff Lines Share (%)` &lt;dbl&gt;,
+#   `AHS Duty Free Tariff Lines Share (%)` &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+<p>rename export column and filter important columns for joining</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>export_data <span class="ot">&lt;-</span> <span class="fu">rename</span>(export, <span class="at">country =</span> <span class="st">`</span><span class="at">Partner Name</span><span class="st">`</span>, <span class="at">year =</span> Year) <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>         year,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">export_usd =</span> <span class="st">`</span><span class="at">Export (US$ Thousand)</span><span class="st">`</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">import_usd =</span> <span class="st">`</span><span class="at">Import (US$ Thousand)</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>rename some of the country and location name</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>export_data <span class="ot">&lt;-</span> export_data <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">case_when</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">"Russian Federation"</span> <span class="sc">~</span> <span class="st">"Russia"</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">"United Kingdom"</span> <span class="sc">~</span> <span class="st">"Britain"</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">"Hong Kong, China"</span> <span class="sc">~</span> <span class="st">"Hong Kong"</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">"Korea, Rep."</span> <span class="sc">~</span> <span class="st">"South Korea"</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'Egypt, Arab Rep.'</span> <span class="sc">~</span> <span class="st">'Egypt'</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'Slovak Republic'</span> <span class="sc">~</span> <span class="st">'Slovakia'</span>,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'United Arab Emirates'</span> <span class="sc">~</span> <span class="st">'UAE'</span>,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> country  </span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>join the big mac data with export data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>joined_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(big_mac_new, export_data, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"country"</span>, <span class="st">"year"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>add in gdp data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>gdp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/gdp.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gdp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 27
+  `Series Name`     `Series Code`  `Country Name` `Country Code` `2000 [YR2000]`
+  &lt;chr&gt;             &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;          
+1 GDP (current US$) NY.GDP.MKTP.CD Afghanistan    AFG            ..             
+2 GDP (current US$) NY.GDP.MKTP.CD Albania        ALB            3480355258     
+3 GDP (current US$) NY.GDP.MKTP.CD Algeria        DZA            54790398570    
+4 GDP (current US$) NY.GDP.MKTP.CD American Samoa ASM            ..             
+5 GDP (current US$) NY.GDP.MKTP.CD Andorra        AND            1429047882     
+6 GDP (current US$) NY.GDP.MKTP.CD Angola         AGO            9129594816     
+# ℹ 22 more variables: `2001 [YR2001]` &lt;chr&gt;, `2002 [YR2002]` &lt;chr&gt;,
+#   `2003 [YR2003]` &lt;chr&gt;, `2004 [YR2004]` &lt;chr&gt;, `2005 [YR2005]` &lt;chr&gt;,
+#   `2006 [YR2006]` &lt;chr&gt;, `2007 [YR2007]` &lt;chr&gt;, `2008 [YR2008]` &lt;chr&gt;,
+#   `2009 [YR2009]` &lt;chr&gt;, `2010 [YR2010]` &lt;chr&gt;, `2011 [YR2011]` &lt;chr&gt;,
+#   `2012 [YR2012]` &lt;chr&gt;, `2013 [YR2013]` &lt;chr&gt;, `2014 [YR2014]` &lt;chr&gt;,
+#   `2015 [YR2015]` &lt;chr&gt;, `2016 [YR2016]` &lt;chr&gt;, `2017 [YR2017]` &lt;chr&gt;,
+#   `2018 [YR2018]` &lt;chr&gt;, `2019 [YR2019]` &lt;chr&gt;, `2020 [YR2020]` &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<p>reformat to long format</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>gdp_long_format <span class="ot">&lt;-</span> gdp <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>(<span class="st">`</span><span class="at">Series Name</span><span class="st">`</span>, <span class="st">`</span><span class="at">Series Code</span><span class="st">`</span>, <span class="st">`</span><span class="at">Country Name</span><span class="st">`</span>, <span class="st">`</span><span class="at">Country Code</span><span class="st">`</span>),  </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"year"</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_pattern =</span> <span class="st">"^</span><span class="sc">\\</span><span class="st">d{4} </span><span class="sc">\\</span><span class="st">[YR(</span><span class="sc">\\</span><span class="st">d{4})</span><span class="sc">\\</span><span class="st">]"</span>,  </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"GDP"</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">country =</span> <span class="st">`</span><span class="at">Country Name</span><span class="st">`</span>, year, GDP)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>gdp_long_format<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(gdp_long_format<span class="sc">$</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>convert missing data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>gdp_long_format <span class="ot">&lt;-</span> gdp_long_format <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">GDP =</span> <span class="fu">na_if</span>(GDP, <span class="st">".."</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>rename columns in GDP</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>gdp_long_format <span class="ot">&lt;-</span> gdp_long_format <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">case_when</span>(</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">"Russian Federation"</span> <span class="sc">~</span> <span class="st">"Russia"</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">"United Kingdom"</span> <span class="sc">~</span> <span class="st">"Britain"</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">"Czechia"</span> <span class="sc">~</span> <span class="st">"Czech Republic"</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">"Korea, Rep."</span> <span class="sc">~</span> <span class="st">"South Korea"</span>,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">"Egypt, Arab Rep."</span> <span class="sc">~</span> <span class="st">"Egypt"</span>,</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'Hong Kong SAR, China'</span> <span class="sc">~</span> <span class="st">'Hong Kong'</span>,</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'Slovak Republic'</span> <span class="sc">~</span> <span class="st">'Slovakia'</span>,</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'United Arab Emirates'</span> <span class="sc">~</span> <span class="st">'UAE'</span>,</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'Viet Nam'</span> <span class="sc">~</span> <span class="st">'Vietnam'</span>,</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'Turkiye'</span> <span class="sc">~</span> <span class="st">'Turkey'</span>,</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'Venezuela, RB'</span> <span class="sc">~</span> <span class="st">'Venezuela'</span>,</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> country  </span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>join big mac data with gdp</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>joined_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(joined_data, gdp_long_format, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"country"</span>, <span class="st">"year"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>import GPD per Capita data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>gdp_capita <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/gdp_capita.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gdp_capita)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 27
+  `Series Name`      `Series Code` `Country Name` `Country Code` `2000 [YR2000]`
+  &lt;chr&gt;              &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;          
+1 GDP per capita (c… NY.GDP.PCAP.… Afghanistan    AFG            ..             
+2 GDP per capita (c… NY.GDP.PCAP.… Albania        ALB            1126.68334     
+3 GDP per capita (c… NY.GDP.PCAP.… Algeria        DZA            1780.376063    
+4 GDP per capita (c… NY.GDP.PCAP.… American Samoa ASM            ..             
+5 GDP per capita (c… NY.GDP.PCAP.… Andorra        AND            21620.4651     
+6 GDP per capita (c… NY.GDP.PCAP.… Angola         AGO            556.8842435    
+# ℹ 22 more variables: `2001 [YR2001]` &lt;chr&gt;, `2002 [YR2002]` &lt;chr&gt;,
+#   `2003 [YR2003]` &lt;chr&gt;, `2004 [YR2004]` &lt;chr&gt;, `2005 [YR2005]` &lt;chr&gt;,
+#   `2006 [YR2006]` &lt;chr&gt;, `2007 [YR2007]` &lt;chr&gt;, `2008 [YR2008]` &lt;chr&gt;,
+#   `2009 [YR2009]` &lt;chr&gt;, `2010 [YR2010]` &lt;chr&gt;, `2011 [YR2011]` &lt;chr&gt;,
+#   `2012 [YR2012]` &lt;chr&gt;, `2013 [YR2013]` &lt;chr&gt;, `2014 [YR2014]` &lt;chr&gt;,
+#   `2015 [YR2015]` &lt;chr&gt;, `2016 [YR2016]` &lt;chr&gt;, `2017 [YR2017]` &lt;chr&gt;,
+#   `2018 [YR2018]` &lt;chr&gt;, `2019 [YR2019]` &lt;chr&gt;, `2020 [YR2020]` &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<p>reformat to long format</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>gdp_capita_long_format <span class="ot">&lt;-</span> gdp_capita <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>(<span class="st">`</span><span class="at">Series Name</span><span class="st">`</span>, <span class="st">`</span><span class="at">Series Code</span><span class="st">`</span>, <span class="st">`</span><span class="at">Country Name</span><span class="st">`</span>, <span class="st">`</span><span class="at">Country Code</span><span class="st">`</span>),  </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"year"</span>,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_pattern =</span> <span class="st">"^</span><span class="sc">\\</span><span class="st">d{4} </span><span class="sc">\\</span><span class="st">[YR(</span><span class="sc">\\</span><span class="st">d{4})</span><span class="sc">\\</span><span class="st">]"</span>,  </span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"gdp_per_capita"</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">country =</span> <span class="st">`</span><span class="at">Country Name</span><span class="st">`</span>, year, gdp_per_capita)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>gdp_capita_long_format<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(gdp_capita_long_format<span class="sc">$</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>convert missing data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>gdp_capita_long_format <span class="ot">&lt;-</span> gdp_capita_long_format <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gdp_per_capita =</span> <span class="fu">na_if</span>(gdp_per_capita, <span class="st">".."</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>rename columns in inflation</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>gdp_capita_long_format <span class="ot">&lt;-</span> gdp_capita_long_format <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">case_when</span>(</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">"Russian Federation"</span> <span class="sc">~</span> <span class="st">"Russia"</span>,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">"United Kingdom"</span> <span class="sc">~</span> <span class="st">"Britain"</span>,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">"Czechia"</span> <span class="sc">~</span> <span class="st">"Czech Republic"</span>,</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">"Korea, Rep."</span> <span class="sc">~</span> <span class="st">"South Korea"</span>,</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">"Egypt, Arab Rep."</span> <span class="sc">~</span> <span class="st">"Egypt"</span>,</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'Hong Kong SAR, China'</span> <span class="sc">~</span> <span class="st">'Hong Kong'</span>,</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'Slovak Republic'</span> <span class="sc">~</span> <span class="st">'Slovakia'</span>,</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'United Arab Emirates'</span> <span class="sc">~</span> <span class="st">'UAE'</span>,</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'Viet Nam'</span> <span class="sc">~</span> <span class="st">'Vietnam'</span>,</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'Turkiye'</span> <span class="sc">~</span> <span class="st">'Turkey'</span>,</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'Venezuela, RB'</span> <span class="sc">~</span> <span class="st">'Venezuela'</span>,</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> country  </span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>join big mac data with gdp_per_capita</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>joined_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(joined_data, gdp_capita_long_format, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"country"</span>, <span class="st">"year"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>import GPD per employed data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>gdp_employed <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/gdp_employed.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gdp_employed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 27
+  `Series Name`      `Series Code` `Country Name` `Country Code` `2000 [YR2000]`
+  &lt;chr&gt;              &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;          
+1 GDP per person em… SL.GDP.PCAP.… Afghanistan    AFG            ..             
+2 GDP per person em… SL.GDP.PCAP.… Albania        ALB            17063.88092    
+3 GDP per person em… SL.GDP.PCAP.… Algeria        DZA            43131.14954    
+4 GDP per person em… SL.GDP.PCAP.… American Samoa ASM            ..             
+5 GDP per person em… SL.GDP.PCAP.… Andorra        AND            ..             
+6 GDP per person em… SL.GDP.PCAP.… Angola         AGO            11917.5994     
+# ℹ 22 more variables: `2001 [YR2001]` &lt;chr&gt;, `2002 [YR2002]` &lt;chr&gt;,
+#   `2003 [YR2003]` &lt;chr&gt;, `2004 [YR2004]` &lt;chr&gt;, `2005 [YR2005]` &lt;chr&gt;,
+#   `2006 [YR2006]` &lt;chr&gt;, `2007 [YR2007]` &lt;chr&gt;, `2008 [YR2008]` &lt;chr&gt;,
+#   `2009 [YR2009]` &lt;chr&gt;, `2010 [YR2010]` &lt;chr&gt;, `2011 [YR2011]` &lt;chr&gt;,
+#   `2012 [YR2012]` &lt;chr&gt;, `2013 [YR2013]` &lt;chr&gt;, `2014 [YR2014]` &lt;chr&gt;,
+#   `2015 [YR2015]` &lt;chr&gt;, `2016 [YR2016]` &lt;chr&gt;, `2017 [YR2017]` &lt;chr&gt;,
+#   `2018 [YR2018]` &lt;chr&gt;, `2019 [YR2019]` &lt;chr&gt;, `2020 [YR2020]` &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<p>reformat to long format</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>gdp_employed_long_format <span class="ot">&lt;-</span> gdp_employed <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>(<span class="st">`</span><span class="at">Series Name</span><span class="st">`</span>, <span class="st">`</span><span class="at">Series Code</span><span class="st">`</span>, <span class="st">`</span><span class="at">Country Name</span><span class="st">`</span>, <span class="st">`</span><span class="at">Country Code</span><span class="st">`</span>),  </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"year"</span>,</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_pattern =</span> <span class="st">"^</span><span class="sc">\\</span><span class="st">d{4} </span><span class="sc">\\</span><span class="st">[YR(</span><span class="sc">\\</span><span class="st">d{4})</span><span class="sc">\\</span><span class="st">]"</span>,  </span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"gdp_per_employed"</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">country =</span> <span class="st">`</span><span class="at">Country Name</span><span class="st">`</span>, year, gdp_per_employed)</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>gdp_employed_long_format<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(gdp_employed_long_format<span class="sc">$</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>convert missing data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>gdp_employed_long_format <span class="ot">&lt;-</span> gdp_employed_long_format <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gdp_per_employed =</span> <span class="fu">na_if</span>(gdp_per_employed, <span class="st">".."</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>rename columns in inflation</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>gdp_employed_long_format <span class="ot">&lt;-</span> gdp_employed_long_format <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">case_when</span>(</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">"Russian Federation"</span> <span class="sc">~</span> <span class="st">"Russia"</span>,</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">"United Kingdom"</span> <span class="sc">~</span> <span class="st">"Britain"</span>,</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">"Czechia"</span> <span class="sc">~</span> <span class="st">"Czech Republic"</span>,</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">"Korea, Rep."</span> <span class="sc">~</span> <span class="st">"South Korea"</span>,</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">"Egypt, Arab Rep."</span> <span class="sc">~</span> <span class="st">"Egypt"</span>,</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'Hong Kong SAR, China'</span> <span class="sc">~</span> <span class="st">'Hong Kong'</span>,</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'Slovak Republic'</span> <span class="sc">~</span> <span class="st">'Slovakia'</span>,</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'United Arab Emirates'</span> <span class="sc">~</span> <span class="st">'UAE'</span>,</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'Viet Nam'</span> <span class="sc">~</span> <span class="st">'Vietnam'</span>,</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'Turkiye'</span> <span class="sc">~</span> <span class="st">'Turkey'</span>,</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'Venezuela, RB'</span> <span class="sc">~</span> <span class="st">'Venezuela'</span>,</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> country  </span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>join big mac data with gdp_per_employed</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>joined_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(joined_data, gdp_employed_long_format, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"country"</span>, <span class="st">"year"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>import inflation data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>inflation <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/inflation.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(inflation)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 27
+  `Series Name`      `Series Code` `Country Name` `Country Code` `2000 [YR2000]`
+  &lt;chr&gt;              &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;          
+1 Inflation, consum… FP.CPI.TOTL.… Afghanistan    AFG            ..             
+2 Inflation, consum… FP.CPI.TOTL.… Albania        ALB            0.050018136    
+3 Inflation, consum… FP.CPI.TOTL.… Algeria        DZA            0.339163189    
+4 Inflation, consum… FP.CPI.TOTL.… American Samoa ASM            ..             
+5 Inflation, consum… FP.CPI.TOTL.… Andorra        AND            ..             
+6 Inflation, consum… FP.CPI.TOTL.… Angola         AGO            324.9968716    
+# ℹ 22 more variables: `2001 [YR2001]` &lt;chr&gt;, `2002 [YR2002]` &lt;chr&gt;,
+#   `2003 [YR2003]` &lt;chr&gt;, `2004 [YR2004]` &lt;chr&gt;, `2005 [YR2005]` &lt;chr&gt;,
+#   `2006 [YR2006]` &lt;chr&gt;, `2007 [YR2007]` &lt;chr&gt;, `2008 [YR2008]` &lt;chr&gt;,
+#   `2009 [YR2009]` &lt;chr&gt;, `2010 [YR2010]` &lt;chr&gt;, `2011 [YR2011]` &lt;chr&gt;,
+#   `2012 [YR2012]` &lt;chr&gt;, `2013 [YR2013]` &lt;chr&gt;, `2014 [YR2014]` &lt;chr&gt;,
+#   `2015 [YR2015]` &lt;chr&gt;, `2016 [YR2016]` &lt;chr&gt;, `2017 [YR2017]` &lt;chr&gt;,
+#   `2018 [YR2018]` &lt;chr&gt;, `2019 [YR2019]` &lt;chr&gt;, `2020 [YR2020]` &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<p>reformat to long format</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>inflation_long_format <span class="ot">&lt;-</span> inflation <span class="sc">%&gt;%</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>(<span class="st">`</span><span class="at">Series Name</span><span class="st">`</span>, <span class="st">`</span><span class="at">Series Code</span><span class="st">`</span>, <span class="st">`</span><span class="at">Country Name</span><span class="st">`</span>, <span class="st">`</span><span class="at">Country Code</span><span class="st">`</span>),  </span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"year"</span>,</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_pattern =</span> <span class="st">"^</span><span class="sc">\\</span><span class="st">d{4} </span><span class="sc">\\</span><span class="st">[YR(</span><span class="sc">\\</span><span class="st">d{4})</span><span class="sc">\\</span><span class="st">]"</span>,  </span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"inflation"</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">country =</span> <span class="st">`</span><span class="at">Country Name</span><span class="st">`</span>, year, inflation)</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>inflation_long_format<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(inflation_long_format<span class="sc">$</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>convert missing data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>inflation_long_format <span class="ot">&lt;-</span> inflation_long_format <span class="sc">%&gt;%</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">inflation =</span> <span class="fu">na_if</span>(inflation, <span class="st">".."</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>rename columns in inflation</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>inflation_long_format <span class="ot">&lt;-</span> inflation_long_format <span class="sc">%&gt;%</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">case_when</span>(</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">"Russian Federation"</span> <span class="sc">~</span> <span class="st">"Russia"</span>,</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">"United Kingdom"</span> <span class="sc">~</span> <span class="st">"Britain"</span>,</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">"Czechia"</span> <span class="sc">~</span> <span class="st">"Czech Republic"</span>,</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">"Korea, Rep."</span> <span class="sc">~</span> <span class="st">"South Korea"</span>,</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">"Egypt, Arab Rep."</span> <span class="sc">~</span> <span class="st">"Egypt"</span>,</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'Hong Kong SAR, China'</span> <span class="sc">~</span> <span class="st">'Hong Kong'</span>,</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'Slovak Republic'</span> <span class="sc">~</span> <span class="st">'Slovakia'</span>,</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'United Arab Emirates'</span> <span class="sc">~</span> <span class="st">'UAE'</span>,</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'Viet Nam'</span> <span class="sc">~</span> <span class="st">'Vietnam'</span>,</span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'Turkiye'</span> <span class="sc">~</span> <span class="st">'Turkey'</span>,</span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>    country <span class="sc">==</span> <span class="st">'Venezuela, RB'</span> <span class="sc">~</span> <span class="st">'Venezuela'</span>,</span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> country  </span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>join big mac data with inflation</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>joined_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(joined_data, inflation_long_format, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"country"</span>, <span class="st">"year"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>drop Taiwan, and Euroarea during to missing data, and rename the new dataframe</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>big_mac_combined <span class="ot">&lt;-</span> joined_data <span class="sc">%&gt;%</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">!=</span> <span class="st">"Taiwan"</span>, country <span class="sc">!=</span> <span class="st">"Euro area"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>take a look at the dataframe</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(big_mac_combined)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 14
+# Groups:   year, country [6]
+  country    year currency_code bmi_localprice bmi_usd_price bmi_gdpadj_price
+  &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;                  &lt;dbl&gt;         &lt;dbl&gt;            &lt;dbl&gt;
+1 Argentina  2000 ARS                     2.5           2.5              1.93
+2 Australia  2000 AUD                     2.59          1.54             2.32
+3 Brazil     2000 BRL                     2.95          1.65             1.87
+4 Britain    2000 GBP                     1.9           3.00             2.17
+5 Canada     2000 CAD                     2.85          1.94             2.26
+6 Chile      2000 CLP                  1260             2.45             1.87
+# ℹ 8 more variables: dollar_ex &lt;dbl&gt;, GDP_bigmac &lt;dbl&gt;, export_usd &lt;dbl&gt;,
+#   import_usd &lt;dbl&gt;, GDP &lt;chr&gt;, gdp_per_capita &lt;chr&gt;, gdp_per_employed &lt;chr&gt;,
+#   inflation &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p>change column datatype</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>big_mac_combined <span class="ot">&lt;-</span> big_mac_combined <span class="sc">%&gt;%</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">GDP =</span> <span class="fu">as.numeric</span>(GDP),</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">inflation =</span> <span class="fu">as.numeric</span>(inflation),</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">gdp_per_capita =</span> <span class="fu">as.numeric</span>(gdp_per_capita),</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">gdp_per_employed =</span> <span class="fu">as.numeric</span>(gdp_per_employed)</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(big_mac_combined)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 14
+# Groups:   year, country [6]
+  country    year currency_code bmi_localprice bmi_usd_price bmi_gdpadj_price
+  &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;                  &lt;dbl&gt;         &lt;dbl&gt;            &lt;dbl&gt;
+1 Argentina  2000 ARS                     2.5           2.5              1.93
+2 Australia  2000 AUD                     2.59          1.54             2.32
+3 Brazil     2000 BRL                     2.95          1.65             1.87
+4 Britain    2000 GBP                     1.9           3.00             2.17
+5 Canada     2000 CAD                     2.85          1.94             2.26
+6 Chile      2000 CLP                  1260             2.45             1.87
+# ℹ 8 more variables: dollar_ex &lt;dbl&gt;, GDP_bigmac &lt;dbl&gt;, export_usd &lt;dbl&gt;,
+#   import_usd &lt;dbl&gt;, GDP &lt;dbl&gt;, gdp_per_capita &lt;dbl&gt;, gdp_per_employed &lt;dbl&gt;,
+#   inflation &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(big_mac_combined)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   country               year      currency_code      bmi_localprice   
+ Length:849         Min.   :2000   Length:849         Min.   :      1  
+ Class :character   1st Qu.:2007   Class :character   1st Qu.:      7  
+ Mode  :character   Median :2013   Mode  :character   Median :     22  
+                    Mean   :2013                      Mean   :  15165  
+                    3rd Qu.:2019                      3rd Qu.:    118  
+                    Max.   :2023                      Max.   :4000000  
+                                                                       
+ bmi_usd_price   bmi_gdpadj_price   dollar_ex           GDP_bigmac    
+ Min.   :0.640   Min.   :1.552    Min.   :      0.3   Min.   :     0  
+ 1st Qu.:2.328   1st Qu.:2.704    1st Qu.:      2.7   1st Qu.:  7661  
+ Median :3.026   Median :3.321    Median :      7.1   Median : 17264  
+ Mean   :3.274   Mean   :3.332    Mean   :   5781.0   Mean   : 24130  
+ 3rd Qu.:4.072   3rd Qu.:3.947    3rd Qu.:     45.9   3rd Qu.: 38240  
+ Max.   :8.312   Max.   :5.545    Max.   :1600500.0   Max.   :117654  
+                                                                      
+   export_usd          import_usd             GDP            gdp_per_capita  
+ Min.   :7.416e+06   Min.   :3.959e+06   Min.   :1.369e+10   Min.   :   739  
+ 1st Qu.:7.143e+07   1st Qu.:6.535e+07   1st Qu.:2.187e+11   1st Qu.:  5872  
+ Median :1.459e+08   Median :1.358e+08   Median :3.932e+11   Median : 13398  
+ Mean   :2.865e+08   Mean   :2.613e+08   Mean   :1.409e+12   Mean   : 23750  
+ 3rd Qu.:3.287e+08   3rd Qu.:2.819e+08   3rd Qu.:1.105e+12   3rd Qu.: 39949  
+ Max.   :3.292e+09   Max.   :3.383e+09   Max.   :2.544e+13   Max.   :106177  
+ NA's   :103         NA's   :103         NA's   :51          NA's   :51      
+ gdp_per_employed   inflation     
+ Min.   :  6155   Min.   :-3.686  
+ 1st Qu.: 34211   1st Qu.: 1.538  
+ Median : 61450   Median : 2.849  
+ Mean   : 65702   Mean   : 4.047  
+ 3rd Qu.: 92452   3rd Qu.: 5.057  
+ Max.   :179303   Max.   :72.309  
+ NA's   :53       NA's   :75      </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize data to find the range of years available for each country</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>year_summary <span class="ot">&lt;-</span> big_mac_combined <span class="sc">%&gt;%</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">StartYear =</span> <span class="fu">min</span>(year), <span class="at">EndYear =</span> <span class="fu">max</span>(year)) <span class="sc">%&gt;%</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the summary</span></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(year_summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 52 × 3
+   country    StartYear EndYear
+   &lt;chr&gt;          &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Argentina       2000    2023
+ 2 Australia       2000    2023
+ 3 Azerbaijan      2021    2023
+ 4 Bahrain         2021    2023
+ 5 Brazil          2000    2023
+ 6 Britain         2000    2023
+ 7 Canada          2000    2023
+ 8 Chile           2000    2023
+ 9 China           2000    2023
+10 Colombia        2004    2023
+# ℹ 42 more rows</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Your previous code to summarize StartYear and EndYear by country</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>year_summary <span class="ot">&lt;-</span> big_mac_combined <span class="sc">%&gt;%</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span></span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">StartYear =</span> <span class="fu">min</span>(year), <span class="at">EndYear =</span> <span class="fu">max</span>(year)) <span class="sc">%&gt;%</span></span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Group by StartYear and list countries along with their EndYear</span></span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>grouped_summary <span class="ot">&lt;-</span> year_summary <span class="sc">%&gt;%</span></span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(StartYear) <span class="sc">%&gt;%</span></span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Countries =</span> <span class="fu">paste</span>(country, <span class="st">"(EndYear:"</span>, EndYear, <span class="st">")"</span>, <span class="at">sep =</span> <span class="st">""</span>, <span class="at">collapse =</span> <span class="st">"; "</span>),</span>
+<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">'drop'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb55-16"><a href="#cb55-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-17"><a href="#cb55-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the grouped summary</span></span>
+<span id="cb55-18"><a href="#cb55-18" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(grouped_summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 2
+  StartYear Countries                                                           
+      &lt;dbl&gt; &lt;chr&gt;                                                               
+1      2000 Argentina(EndYear:2023); Australia(EndYear:2023); Brazil(EndYear:20…
+2      2001 Philippines(EndYear:2023)                                           
+3      2002 Norway(EndYear:2023); Peru(EndYear:2023); Turkey(EndYear:2023)      
+4      2003 Egypt(EndYear:2023)                                                 
+5      2004 Colombia(EndYear:2023); Pakistan(EndYear:2023); Saudi Arabia(EndYea…
+6      2011 India(EndYear:2023)                                                 
+7      2021 Azerbaijan(EndYear:2023); Bahrain(EndYear:2023); Costa Rica(EndYear…</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>filtered_big_mac_data <span class="ot">&lt;-</span> big_mac_combined <span class="sc">%&gt;%</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2022</span>, <span class="dv">2023</span>)))</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View the first few rows of the filtered dataframe to confirm</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(filtered_big_mac_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 14
+# Groups:   year, country [6]
+  country    year currency_code bmi_localprice bmi_usd_price bmi_gdpadj_price
+  &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;                  &lt;dbl&gt;         &lt;dbl&gt;            &lt;dbl&gt;
+1 Argentina  2000 ARS                     2.5           2.5              1.93
+2 Australia  2000 AUD                     2.59          1.54             2.32
+3 Brazil     2000 BRL                     2.95          1.65             1.87
+4 Britain    2000 GBP                     1.9           3.00             2.17
+5 Canada     2000 CAD                     2.85          1.94             2.26
+6 Chile      2000 CLP                  1260             2.45             1.87
+# ℹ 8 more variables: dollar_ex &lt;dbl&gt;, GDP_bigmac &lt;dbl&gt;, export_usd &lt;dbl&gt;,
+#   import_usd &lt;dbl&gt;, GDP &lt;dbl&gt;, gdp_per_capita &lt;dbl&gt;, gdp_per_employed &lt;dbl&gt;,
+#   inflation &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Checking the missing data and highlighting the countries within the gdp_per_employed and inflation columns</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>missing_values_summary <span class="ot">&lt;-</span> filtered_big_mac_data <span class="sc">%&gt;%</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(gdp_per_employed) <span class="sc">|</span> <span class="fu">is.na</span>(inflation)) <span class="sc">%&gt;%</span> <span class="co"># Adjust 'price' to the column you're interested in</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country, year) <span class="sc">%&gt;%</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">MissingCount =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">'drop'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(country, year)</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the summary</span></span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(missing_values_summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 22 × 3
+   country    year MissingCount
+   &lt;chr&gt;     &lt;dbl&gt;        &lt;int&gt;
+ 1 Argentina  2000            1
+ 2 Argentina  2001            1
+ 3 Argentina  2002            1
+ 4 Argentina  2003            1
+ 5 Argentina  2004            1
+ 6 Argentina  2005            1
+ 7 Argentina  2006            1
+ 8 Argentina  2007            1
+ 9 Argentina  2008            1
+10 Argentina  2009            1
+# ℹ 12 more rows</code></pre>
+</div>
+</div>
+<p>Impute the the inflation data for Argentina from <em>[World Data Info Link]</em>(https://www.worlddata.info/america/argentina/inflation-rates.php)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>arg_inflation_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/ARG_inflation_Data.xlsx"</span>)</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>arg_inflation_data_relevant <span class="ot">&lt;-</span> arg_inflation_data <span class="sc">%&gt;%</span></span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, inflation)</span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a>filtered_big_mac_data_imputed <span class="ot">&lt;-</span> filtered_big_mac_data <span class="sc">%&gt;%</span></span>
+<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb61-11"><a href="#cb61-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">inflation_arg =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">"Argentina"</span>, arg_inflation_data<span class="sc">$</span>inflation[<span class="fu">match</span>(year, arg_inflation_data<span class="sc">$</span>year)], <span class="cn">NA</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb61-12"><a href="#cb61-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">inflation =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(inflation) <span class="sc">&amp;</span> country <span class="sc">==</span> <span class="st">"Argentina"</span>, inflation_arg, inflation)) <span class="sc">%&gt;%</span></span>
+<span id="cb61-13"><a href="#cb61-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>inflation_arg)</span>
+<span id="cb61-14"><a href="#cb61-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-15"><a href="#cb61-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(filtered_big_mac_data_imputed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 746 × 14
+# Groups:   year, country [746]
+   country      year currency_code bmi_localprice bmi_usd_price bmi_gdpadj_price
+   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;                  &lt;dbl&gt;         &lt;dbl&gt;            &lt;dbl&gt;
+ 1 Argentina    2000 ARS                     2.5           2.5              1.93
+ 2 Australia    2000 AUD                     2.59          1.54             2.32
+ 3 Brazil       2000 BRL                     2.95          1.65             1.87
+ 4 Britain      2000 GBP                     1.9           3.00             2.17
+ 5 Canada       2000 CAD                     2.85          1.94             2.26
+ 6 Chile        2000 CLP                  1260             2.45             1.87
+ 7 China        2000 CNY                     9.9           1.20             1.82
+ 8 Czech Repu…  2000 CZK                    54.4           1.39             1.95
+ 9 Denmark      2000 DKK                    24.8           3.08             2.17
+10 Hong Kong    2000 HKD                    10.2           1.31             2.56
+# ℹ 736 more rows
+# ℹ 8 more variables: dollar_ex &lt;dbl&gt;, GDP_bigmac &lt;dbl&gt;, export_usd &lt;dbl&gt;,
+#   import_usd &lt;dbl&gt;, GDP &lt;dbl&gt;, gdp_per_capita &lt;dbl&gt;, gdp_per_employed &lt;dbl&gt;,
+#   inflation &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Will now, remove the data from Venezuela as it has both missing datas from gdp and inflation</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>cleaned_big_mac_data <span class="ot">&lt;-</span> filtered_big_mac_data_imputed <span class="sc">%&gt;%</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">!=</span> <span class="st">"Venezuela"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'cleaned_big_mac_data' is already loaded into your R session</span></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert year to numeric to ensure proper filtering</span></span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>cleaned_big_mac_data<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(cleaned_big_mac_data<span class="sc">$</span>year))</span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for years 2002 to 2021</span></span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>data_2002_2021 <span class="ot">&lt;-</span> cleaned_big_mac_data <span class="sc">%&gt;%</span></span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">2002</span> <span class="sc">&amp;</span> year <span class="sc">&lt;=</span> <span class="dv">2021</span>)</span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop rows with any NA values in any column</span></span>
+<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a>data_2002_2021_complete <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(data_2002_2021)</span>
+<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify countries with data for each year from 2002 to 2021</span></span>
+<span id="cb64-17"><a href="#cb64-17" aria-hidden="true" tabindex="-1"></a>countries_with_complete_data <span class="ot">&lt;-</span> data_2002_2021_complete <span class="sc">%&gt;%</span></span>
+<span id="cb64-18"><a href="#cb64-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span></span>
+<span id="cb64-19"><a href="#cb64-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">n_distinct</span>(year) <span class="sc">==</span> (<span class="dv">2021</span> <span class="sc">-</span> <span class="dv">2002</span> <span class="sc">+</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb64-20"><a href="#cb64-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb64-21"><a href="#cb64-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-22"><a href="#cb64-22" aria-hidden="true" tabindex="-1"></a>countries_with_complete_data <span class="ot">&lt;-</span> countries_with_complete_data <span class="sc">%&gt;%</span></span>
+<span id="cb64-23"><a href="#cb64-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">"Britain"</span>, <span class="st">"United Kingdom"</span>, country),</span>
+<span id="cb64-24"><a href="#cb64-24" aria-hidden="true" tabindex="-1"></a>         <span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">"Czech Republic"</span>, <span class="st">"Czech Rep."</span>, country),</span>
+<span id="cb64-25"><a href="#cb64-25" aria-hidden="true" tabindex="-1"></a>         <span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">"South Korea"</span>, <span class="st">"Korea"</span>, country),</span>
+<span id="cb64-26"><a href="#cb64-26" aria-hidden="true" tabindex="-1"></a>         <span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">"Switzerland"</span>, <span class="st">"Switzerland"</span>, country))</span>
+<span id="cb64-27"><a href="#cb64-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-28"><a href="#cb64-28" aria-hidden="true" tabindex="-1"></a><span class="co"># View the first few rows to confirm</span></span>
+<span id="cb64-29"><a href="#cb64-29" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(countries_with_complete_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 14
+  country       year currency_code bmi_localprice bmi_usd_price bmi_gdpadj_price
+  &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;                  &lt;dbl&gt;         &lt;dbl&gt;            &lt;dbl&gt;
+1 Argentina     2002 ARS                     2.5          0.799             1.86
+2 Australia     2002 AUD                     3            1.61              2.31
+3 Brazil        2002 BRL                     3.6          1.54              1.80
+4 United King…  2002 GBP                     1.99         2.89              2.18
+5 Canada        2002 CAD                     3.33         2.12              2.24
+6 Chile         2002 CLP                  1400            2.14              1.80
+# ℹ 8 more variables: dollar_ex &lt;dbl&gt;, GDP_bigmac &lt;dbl&gt;, export_usd &lt;dbl&gt;,
+#   import_usd &lt;dbl&gt;, GDP &lt;dbl&gt;, gdp_per_capita &lt;dbl&gt;, gdp_per_employed &lt;dbl&gt;,
+#   inflation &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save cleaned_big_mac_data dataframe to a CSV file</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(countries_with_complete_data, <span class="at">file =</span> <span class="st">"data/countries_with_complete_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
