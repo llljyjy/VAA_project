@@ -4,6 +4,12 @@ author: "Group 1"
 date: "02/11/24"
 editor: visual
 date-format: long
+execute:
+  eval: true
+  echo: true
+  freeze: true
+  warning: false
+  message: false
 ---
 
 ![](/image/bigmac.png){fig-align="center"}
@@ -132,12 +138,17 @@ c\. The final objective would be to build an [*interactive dashboard with intera
 
 ## DATASET 📊
 
++----------------------------------------------------------------------------------------------------------------------------------+----------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Data                                                                                                                             | Source         | Description                                                                                                                                                                                                                                      |
-|----------------------------------------------------------------------------------------------------------------------------------|----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
++==================================================================================================================================+================+==================================================================================================================================================================================================================================================+
 | [Big Mac Index (2000-2023)](https://github.com/TheEconomist/big-mac-data/blob/master/source-data/big-mac-source-data-v2.csv)     | The Economist  | This dataset includes semi-annual data from 29 countries and regions. It encompasses local prices of Big Macs, their equivalent in USD and other major currencies like the Euro and CNY, along with both the raw and GDP-adjusted Big Mac Index. |
++----------------------------------------------------------------------------------------------------------------------------------+----------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | [GDP and Related Metrics (2000-2022)](https://databank.worldbank.org/reports.aspx?source=2&series=NY.GDP.MKTP.KD.ZG&country=)    | The World Bank | Annual data covering GDP, GDP per Capita, and inflation rates. This dataset provides an economic context for the countries included in the Big Mac Index.                                                                                        |
++----------------------------------------------------------------------------------------------------------------------------------+----------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | [World Export & Import Dataset (1989 - 2023)](https://www.kaggle.com/datasets/muhammadtalhaawan/world-export-and-import-dataset) | Kaggle         | Annual data covering various aspects of trade, including trade values, tariff rates, and trade policy indicators for numerous countries over multiple years.                                                                                     |
++----------------------------------------------------------------------------------------------------------------------------------+----------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | [Currency Exchange Rates (From 2000)](https://data.oecd.org/conversion/exchange-rates.htm)                                       | OECD           | Exchange rates to USD, complement the Big Mac Index data by offering additional insights into currency valuation trends over time.                                                                                                               |
++----------------------------------------------------------------------------------------------------------------------------------+----------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 The combination of these datasets provides a comprehensive view of economic indicators, currency valuations, and purchasing power across different regions, enhancing the analytical depth of our project.
 
