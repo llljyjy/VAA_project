@@ -42,11 +42,20 @@ The code chunk below converts the date column to a date format
 big_mac$date <- dmy(big_mac$date)
 ```
 
+select only useful col 
+```{r}
+big_mac <- big_mac %>%
+  select(date, currency_code, name, local_price, dollar_price)
+```
+
+
 The code below provides a preview of the Big Mac dataset
 
 ```{r}
 head(big_mac)
 ```
+
+
 
 ## Import Complementary Data Set
 
@@ -90,17 +99,12 @@ gdp_capita <- read_csv("data/gdp_capita.csv")
 gdp_employed <- read_csv("data/gdp_employed.csv")
 inflation <- read_csv("data/inflation.csv")
 unemployment <- read_csv("data/unemployment_rate.csv")
-population <- read_csv("data/population.csv")
 ```
 
 the code chunk below display an overview of the dataframe
 
 ```{r}
 head(gdp)
-```
-
-```{r}
-head(population)
 ```
 
 these indicators are in short format and it is necessary to convert it to long format first so that it can join with the big mac table
@@ -112,13 +116,8 @@ to be updated
 hdi is in long format
 
 ```{r}
-hdi <- read_csv("data/inequality-adjusted-hdi.csv")
-```
-
-rename the column for easier understanding
-
-```{r}
-hdi <- hdi %>% rename(hdi = ihdi)
+hdi <- read_csv("data/human-development-index.csv")
+population <- read_csv("data/population.csv")
 ```
 
 # 2. Data Wrangling and Merging
@@ -166,13 +165,23 @@ big_mac_new <- first_records %>%
          year, 
          currency_code, 
          bmi_localprice = local_price, 
-         bmi_usd_price = dollar_price, 
-         bmi_gdpadj_price = adj_price, 
-         dollar_ex, 
-         GDP_bigmac
+         bmi_usd_price = dollar_price
     
   )
 ```
+
+### local price %
+
+
+```{r}
+big_mac_new <- big_mac_new %>%
+  group_by(country) %>%  
+  arrange(country, currency_code, year) %>%  
+  mutate(bmi_change = (bmi_localprice / lag(bmi_localprice) - 1) * 100) %>%
+  ungroup()  
+head(big_mac_new)
+```
+
 
 ## other data
 
@@ -193,6 +202,15 @@ export_data <- rename(export, country = `Partner Name`, year = Year) %>%
 
 ```
 
+understand net trading $
+```{r}
+export_data <- export_data %>%
+  mutate(net_export = export_usd - import_usd)
+
+head(export_data)
+```
+
+
 rename some of the country and location name
 
 ```{r}
@@ -208,6 +226,7 @@ export_data <- export_data %>%
     TRUE ~ country  
   ))
 ```
+
 
 join the big mac data with export data
 
@@ -315,56 +334,6 @@ join big mac data with gdp_per_capita
 joined_data <- left_join(joined_data, gdp_capita_long_format, by = c("country", "year"))
 ```
 
-### GDP per Employed
-
-reformat to long format
-
-```{r}
-gdp_employed_long_format <- gdp_employed %>%
-  pivot_longer(
-    cols = -c(`Series Name`, `Series Code`, `Country Name`, `Country Code`),  
-    names_to = "year",
-    names_pattern = "^\\d{4} \\[YR(\\d{4})\\]",  
-    values_to = "gdp_per_employed"
-  ) %>%
-  select(country = `Country Name`, year, gdp_per_employed)
-
-gdp_employed_long_format$year <- as.integer(gdp_employed_long_format$year)
-```
-
-convert missing data
-
-```{r}
-gdp_employed_long_format <- gdp_employed_long_format %>%
-  mutate(gdp_per_employed = na_if(gdp_per_employed, ".."))
-```
-
-rename columns in inflation
-
-```{r}
-gdp_employed_long_format <- gdp_employed_long_format %>%
-  mutate(country = case_when(
-    country == "Russian Federation" ~ "Russia",
-    country == "United Kingdom" ~ "Britain",
-    country == "Czechia" ~ "Czech Republic",
-    country == "Korea, Rep." ~ "South Korea",
-    country == "Egypt, Arab Rep." ~ "Egypt",
-    country == 'Hong Kong SAR, China' ~ 'Hong Kong',
-    country == 'Slovak Republic' ~ 'Slovakia',
-    country == 'United Arab Emirates' ~ 'UAE',
-    country == 'Viet Nam' ~ 'Vietnam',
-    country == 'Turkiye' ~ 'Turkey',
-    country == 'Venezuela, RB' ~ 'Venezuela',
-    TRUE ~ country  
-  ))
-```
-
-join big mac data with gdp_per_employed
-
-```{r}
-joined_data <- left_join(joined_data, gdp_employed_long_format, by = c("country", "year"))
-```
-
 ### inflation
 
 reformat to long format
@@ -468,33 +437,11 @@ head(joined_data)
 select columns
 
 ```{r}
-hdi <- hdi %>% select("country", "year", "hdi")
+head(hdi)
 ```
 
 ```{r}
-joined_data <- left_join(joined_data, hdi, by = c("country", "year"))
-```
-
-### population
-
-reformat to long format
-
-```{r}
-population_long_format <- population %>%
-  pivot_longer(
-    cols = -c(`Indicator Name`, `Indicator Code`, `Country Name`, `Country Code`),  
-    names_to = "year",
-    values_to = "population"
-  ) %>%
-  select(country = `Country Name`, year, population)
-
-population_long_format$year <- as.integer(population_long_format$year)
-```
-
-rename columns
-
-```{r}
-population_long_format <- population_long_format %>%
+hdi <- hdi %>%
   mutate(country = case_when(
     country == "Russian Federation" ~ "Russia",
     country == "United Kingdom" ~ "Britain",
@@ -511,10 +458,44 @@ population_long_format <- population_long_format %>%
   ))
 ```
 
+```{r}
+joined_data2 <- left_join(joined_data, hdi, by = c("country", "year"))
+```
+
+```{r}
+joined_data2
+```
+
+### population
+
+rename columns
+
+```{r}
+population <- population %>%
+  mutate(country = case_when(
+    country == "Russian Federation" ~ "Russia",
+    country == "United Kingdom" ~ "Britain",
+    country == "Czechia" ~ "Czech Republic",
+    country == "Korea, Rep." ~ "South Korea",
+    country == "Egypt, Arab Rep." ~ "Egypt",
+    country == 'Hong Kong SAR, China' ~ 'Hong Kong',
+    country == 'Slovak Republic' ~ 'Slovakia',
+    country == 'United Arab Emirates' ~ 'UAE',
+    country == 'Viet Nam' ~ 'Vietnam',
+    country == 'Turkiye' ~ 'Turkey',
+    country == 'Venezuela, RB' ~ 'Venezuela',
+    TRUE ~ country  
+  ))
+```
+
+```{r}
+head(population)
+```
+
 join with big mac
 
 ```{r}
-joined_data <- left_join(joined_data, population_long_format, by = c("country", "year"))
+joined_data2 <- left_join(joined_data2, population, by = c("country", "year"))
 ```
 
 ## check for missing data
@@ -522,7 +503,7 @@ joined_data <- left_join(joined_data, population_long_format, by = c("country", 
 drop tai wan change name
 
 ```{r}
-big_mac_combined <- joined_data %>%
+big_mac_combined <- joined_data2 %>%
   filter(country != "Taiwan", country != "Euro area")
 ```
 
@@ -533,8 +514,7 @@ big_mac_combined <- big_mac_combined %>%
   mutate(
     GDP = as.numeric(GDP),
     inflation = as.numeric(inflation),
-    gdp_per_capita = as.numeric(gdp_per_capita),
-    gdp_per_employed = as.numeric(gdp_per_employed)
+    gdp_per_capita = as.numeric(gdp_per_capita)
   )
 ```
 
@@ -591,7 +571,7 @@ Checking the missing data and highlighting the countries within the gdp_per_empl
 
 ```{r}
 missing_values_summary <- filtered_big_mac_data %>%
-  filter(is.na(gdp_per_employed) | is.na(inflation)) %>% # Adjust 'price' to the column you're interested in
+  filter(is.na(inflation)) %>% # Adjust 'price' to the column you're interested in
   group_by(country, year) %>%
   summarise(MissingCount = n(), .groups = 'drop') %>%
   arrange(country, year)
@@ -629,8 +609,11 @@ cleaned_big_mac_data <- filtered_big_mac_data_imputed %>%
 ```
 
 ```{r}
+head(cleaned_big_mac_data)
+```
 
-# Assuming 'cleaned_big_mac_data' is already loaded into your R session
+```{r}
+
 
 # Convert year to numeric to ensure proper filtering
 cleaned_big_mac_data$year <- as.numeric(as.character(cleaned_big_mac_data$year))
@@ -639,11 +622,8 @@ cleaned_big_mac_data$year <- as.numeric(as.character(cleaned_big_mac_data$year))
 data_2002_2021 <- cleaned_big_mac_data %>%
   filter(year >= 2002 & year <= 2021)
 
-# Drop rows with any NA values in any column
-data_2002_2021_complete <- na.omit(data_2002_2021)
-
 # Identify countries with data for each year from 2002 to 2021
-countries_with_complete_data <- data_2002_2021_complete %>%
+countries_with_complete_data <- data_2002_2021 %>%
   group_by(country) %>%
   filter(n_distinct(year) == (2021 - 2002 + 1)) %>%
   ungroup()
@@ -689,8 +669,6 @@ g20_countries <- c("Argentina", "Australia", "Brazil", "Canada", "China", "Franc
 eu_countries <- c("Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czech Rep.", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Sweden")
 
 brics_countries <- c("Brazil", "Russia", "India", "China", "South Africa","Egypt","Ethiopia","Iran","United Arab Emirates")
-
-nic_countries <- c("Brazil", "Mexico", "India", "China", "Philippines","Indonesia","Thailand","Malaysia","Turkey")
 ```
 
 ```{r}
@@ -699,10 +677,8 @@ country_all <- country_all %>%
     g7 = country %in% g7_countries,
     g20 = country %in% g20_countries,
     eu = country %in% eu_countries,
-    brics = country %in% brics_countries,
-    nic = country %in% nic_countries 
-  )
-
+    brics = country %in% brics_countries)
+  
 ```
 
 take a look at the countries
@@ -713,7 +689,7 @@ head(country_all)
 
 ```{r}
 # Save cleaned_big_mac_data dataframe to a CSV file
-write.csv(countries_with_complete_data, file = "data/countries_with_complete_data.csv")
-write.csv(country_all, file = "data/country_all.csv")
+write.csv(countries_with_complete_data, file = "data/bmi_data.csv")
+write.csv(country_all, file = "data/country_data.csv")
 
 ```

@@ -3,7 +3,13 @@ project:
 
 website:
   title: "ISSS608-G1"
+  image: "image/burger.png"
+  
   navbar:
+    logo: "image/burger.png"
+    title: false
+    collapse-below: lg
+    search: true
     left:
       - text: "Proposal"
         menu: 
@@ -14,10 +20,12 @@ website:
         menu: 
         - text: '1.0 Data Preparation'
           href: "prototype/data_preparation/data_preparation_and_cleaning.html"
-        - text: "EDA"
-          href: "prototype/EDA/eda.html"
-        - text: "Clustering"
-          href: "prototype/modeling/clustering.html"
+        - text: "Univariate Analysis & Panel Regression"
+          href: "https://iss608-vaa-victorianeo.netlify.app/take-home_ex/take-home_ex04/take_home_ex04"
+        - text: "Multi-varient Analysis & TS Clustering"
+          href: "https://isss608-24jan-jiayili.netlify.app/take-home_ex/take-home_ex04/take-home_ex04"
+        - text: "Big Mac Index Choropleth and Trade Network Analysis"
+          href: "https://isss608-ay2324-vaa.netlify.app/take-home_exercises/take-home_ex04/take-home_exercise04"
       
       - text: "Project"
         menu: 
@@ -31,9 +39,15 @@ website:
 
 format:
   html:
-    theme: cosmo
+    theme: 
+      - Simplex
+      - theme.scss
     css: styles.css
     toc: true
+    fontsize: 90%
+    linestretch: 1.6
+    monobackgroundcolor: rgb(255, 255, 255)
+    
 
 editor: visual
 
