@@ -30,12 +30,14 @@ website:
       - text: "Project"
         menu: 
         - text: "website"
-          href: "project/website.html"
+          href: "https://bmi-pricebite.netlify.app/"
+        - text: "Rshiny APP"
+          href: "https://victorianeo.shinyapps.io/bmi-pricebite"
+          
 
     right:
       - href: index.qmd
         text: Home
-      - about.qmd
 
 format:
   html:

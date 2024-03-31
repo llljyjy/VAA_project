@@ -2,10 +2,6 @@
 title: "VAA_project"
 ---
 
-This is a Quarto website.
+Thank you for visiting! Please visit our official website at [https://bmi-pricebite.netlify.app/](#0) instead!
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
-
-```{r}
-1 + 1
-```
+![](image/screen.png)
