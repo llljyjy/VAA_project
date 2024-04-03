@@ -42,20 +42,18 @@ The code chunk below converts the date column to a date format
 big_mac$date <- dmy(big_mac$date)
 ```
 
-select only useful col 
+select only useful col
+
 ```{r}
 big_mac <- big_mac %>%
   select(date, currency_code, name, local_price, dollar_price)
 ```
-
 
 The code below provides a preview of the Big Mac dataset
 
 ```{r}
 head(big_mac)
 ```
-
-
 
 ## Import Complementary Data Set
 
@@ -172,7 +170,6 @@ big_mac_new <- first_records %>%
 
 ### local price %
 
-
 ```{r}
 big_mac_new <- big_mac_new %>%
   group_by(country) %>%  
@@ -181,7 +178,6 @@ big_mac_new <- big_mac_new %>%
   ungroup()  
 head(big_mac_new)
 ```
-
 
 ## other data
 
@@ -202,14 +198,14 @@ export_data <- rename(export, country = `Partner Name`, year = Year) %>%
 
 ```
 
-understand net trading $
+understand net trading \$
+
 ```{r}
 export_data <- export_data %>%
   mutate(net_export = export_usd - import_usd)
 
 head(export_data)
 ```
-
 
 rename some of the country and location name
 
@@ -226,7 +222,6 @@ export_data <- export_data %>%
     TRUE ~ country  
   ))
 ```
-
 
 join the big mac data with export data
 

@@ -32,7 +32,7 @@ website:
         - text: "website"
           href: "https://bmi-pricebite.netlify.app/"
         - text: "Rshiny APP"
-          href: "https://victorianeo.shinyapps.io/bmi-pricebite"
+          href: "https://firghaz.shinyapps.io/bmi_shiny/"
           
 
     right:
