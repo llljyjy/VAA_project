@@ -2,6 +2,6 @@
 title: "VAA_project"
 ---
 
-Thank you for visiting! Please visit our official website at [https://bmi-pricebite.netlify.app/](#0) instead!
+Thank you for visiting! Please visit our official website at <https://bmi-pricebite.netlify.app> instead!
 
 ![](image/screen.png)
